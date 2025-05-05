@@ -11,4 +11,8 @@ public class HomeController {
     public String index() {
         return "layout";
     }
+    @GetMapping("/admin")
+    public String admin() {
+        return "adminlayout";
+    }
 }
