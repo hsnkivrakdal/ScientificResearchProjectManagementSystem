@@ -15,33 +15,39 @@ public class ActivityAreaTypeController {
 
     @GetMapping("/list")
     public String listActivityAreaTypes(Model model) {
+        model.addAttribute("activePage","activity-area-types");
         model.addAttribute("activityAreaTypes", activityAreaTypeService.getAll());
-        return "activityareatypes/get";
+        return "activityareatypes/index";
     }
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        model.addAttribute("activityareatype", new Activityareatype());
-        return "activityareatypes/post";
+        model.addAttribute("activePage","activity-area-types");
+        model.addAttribute("activityAreaTypes", new Activityareatype());
+        return "activityareatypes/create";
     }
     @PostMapping("/create")
-    public String createActivityAreatype(@ModelAttribute Activityareatype activityareatype) {
+    public String createActivityAreatype(@ModelAttribute Activityareatype activityareatype,Model model) {
+        model.addAttribute("activePage","activity-area-types");
         activityAreaTypeService.add(activityareatype);
         return "redirect:/activity-area-types/list";
     }
     @GetMapping("/edit/{id}")
     public String showEditForm(Model model,@PathVariable Integer id) {
+        model.addAttribute("activePage","activity-area-types");
         Activityareatype existing = activityAreaTypeService.getById(id);
-        model.addAttribute("activityareatype", existing);
+        model.addAttribute("activityAreaTypes", existing);
         return "activityareatypes/edit";
     }
     @PostMapping("/edit/{id}")
-    public String updateActivityAreaType(@PathVariable Integer id, Activityareatype activityareatype) {
+    public String updateActivityAreaType(@PathVariable Integer id, Activityareatype activityareatype,Model model) {
+        model.addAttribute("activePage","activity-area-types");
         activityareatype.setId(id);
         activityAreaTypeService.update(activityareatype);
         return "redirect:/activity-area-types/list";
     }
     @GetMapping("/delete/{id}")
-    public String deleteActivityAreaType(@PathVariable Integer id) {
+    public String deleteActivityAreaType(@PathVariable Integer id,Model model) {
+        model.addAttribute("activePage","activity-area-types");
         activityAreaTypeService.deleteById(id);
         return "redirect:/activity-area-types/list";
     }

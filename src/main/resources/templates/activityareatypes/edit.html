@@ -15,7 +15,7 @@
                         <strong>Edit Activity Area Type</strong>
                     </div>
                     <div class="card-body card-block">
-                        <form th:action="@{'/activity-area-types/edit/' + ${activityareatype.id}}" th:object="${activityareatype}" method="post" class="form-horizontal">
+                        <form th:action="@{'/activity-area-types/edit/' + ${activityAreaTypes.id}}" th:object="${activityAreaTypes}" method="post" class="form-horizontal">
 
                             <input type="hidden" th:field="*{id}" />
 

@@ -38,11 +38,11 @@
         <nav class="navbar-mobile">
             <div class="container-fluid">
                 <ul class="navbar-mobile__list list-unstyled">
-                    <li class="has-sub">
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-tachometer-alt"></i>Dashboard
+                    <li th:classappend="${activePage == 'home'} ? 'active'">
+                        <a class="js-arrow" th:href="@{/home/index}">
+                            <i class="fas fa-tachometer-alt"></i>Home
                         </a>
-                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                      <!--  <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                             <li>
                                 <a href="index.html">Dashboard 1</a>
                             </li>
@@ -55,7 +55,7 @@
                             <li>
                                 <a href="index4.html">Dashboard 4</a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </li>
                     <li>
                         <a href="chart.html">
@@ -86,7 +86,7 @@
                         <a class="js-arrow" href="#">
                             <i class="fas fa-copy"></i>Pages
                         </a>
-                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                      <!--  <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                             <li>
                                 <a href="login.html">Login</a>
                             </li>
@@ -96,13 +96,13 @@
                             <li>
                                 <a href="forget-pass.html">Forget Password</a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </li>
                     <li class="has-sub">
                         <a class="js-arrow" href="#">
                             <i class="fas fa-desktop"></i>UI Elements
                         </a>
-                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                      <!--  <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                             <li>
                                 <a href="button.html">Button</a>
                             </li>
@@ -136,7 +136,7 @@
                             <li>
                                 <a href="typo.html">Typography</a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </li>
                 </ul>
             </div>
@@ -152,11 +152,12 @@
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li class="active has-sub">
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-tachometer-alt"></i>Dashboard
+                    <li th:classappend="${activePage == 'home'} ? 'active'">
+                        <a th:href="@{/home/index}">
+                                <i class="fas fa-tachometer-alt"></i>Home
                         </a>
-                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <!--  th:classappend="${activePage == 'tables' or activePage == 'forms'} ? 'active'" aktif olan sublar için-->
+                        <!--<ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
                                 <a href="index.html">Dashboard 1</a>
                             </li>
@@ -169,16 +170,16 @@
                             <li>
                                 <a href="index4.html">Dashboard 4</a>
                             </li>
-                        </ul>
+                        </ul>-->
                     </li>
-                    <li>
-                        <a href="chart.html">
-                            <i class="fas fa-chart-bar"></i>Charts
+                    <li th:classappend="${activePage == 'keyword-types'} ? 'active'">
+                        <a th:href="@{/keyword-types/list}">
+                            <i class="fas fa-chart-bar"></i>Keyword Types
                         </a>
                     </li>
-                    <li>
-                        <a href="table.html">
-                            <i class="fas fa-table"></i>Tables
+                    <li th:classappend="${activePage == 'activity-area-types'} ? 'active'">
+                        <a th:href="@{/activity-area-types/list}">
+                            <i class="fas fa-table"></i>Activity Area Type
                         </a>
                     </li>
                     <li>
@@ -200,7 +201,7 @@
                         <a class="js-arrow" href="#">
                             <i class="fas fa-copy"></i>Pages
                         </a>
-                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <!--<ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
                                 <a href="login.html">Login</a>
                             </li>
@@ -210,12 +211,13 @@
                             <li>
                                 <a href="forget-pass.html">Forget Password</a>
                             </li>
-                        </ul>
+                        </ul>-->
                     </li>
                     <li class="has-sub">
                         <a class="js-arrow" href="#">
                             <i class="fas fa-desktop"></i>UI Elements
                         </a>
+                        <!--
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
                                 <a href="button.html">Button</a>
@@ -250,7 +252,7 @@
                             <li>
                                 <a href="typo.html">Typography</a>
                             </li>
-                        </ul>
+                        </ul>-->
                     </li>
                 </ul>
             </nav>
