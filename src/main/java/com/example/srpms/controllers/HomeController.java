@@ -15,4 +15,12 @@ public class HomeController {
     public String admin() {
         return "adminlayout";
     }
+    @GetMapping("/lecturer")
+    public String lecturer() {
+        return "lecturerlayout";
+    }
+    @GetMapping("/applicationlayout")
+    public String applicationlayout() {
+        return "newapplicationlayout";
+    }
 }
