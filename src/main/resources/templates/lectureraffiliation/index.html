@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>LecturerAffiliation-List</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="row m-t-30">
+    <div class="col-md-12">
+      <div class="table-responsive m-b-40">
+        <table class="table table-borderless table-data3">
+          <thead>
+          <tr>
+            <th style="width: 10%;">Id</th>
+            <th style="width: 80%;">Title</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="affiliation : ${lecturerAffiliation}">
+            <td th:text="${affiliation.id}"></td>
+            <td th:text="${affiliation.lecturerAffiliationTitle}"></td>
+            <td>
+              <div class="d-flex">
+                <a th:href="@{'/lecturer-affiliation/edit/' + ${affiliation.id}}" class="btn btn-info btn-sm" style="margin-right: 2px;">
+                  <i class="fa fa-edit"></i> Edit
+                </a>
+                <a th:href="@{'/lecturer-affiliation/delete/' + ${affiliation.id}}"
+                   class="btn btn-danger btn-sm delBtn">
+                  <i class="fa fa-trash"></i> Delete
+                </a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="card-footer">
+          <a th:href="@{/lecturer-affiliation/create}" methods="get" class="btn btn-warning btn-sm" style="color: white;">
+            <i class="fa fa-plus"></i> Create New
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section layout:fragment="modals">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Modal</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete the record?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <a href="" class="btn btn-primary" id="delRef">Confirm</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

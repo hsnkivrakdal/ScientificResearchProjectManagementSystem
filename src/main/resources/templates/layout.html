@@ -182,19 +182,19 @@
                             <i class="fas fa-table"></i>Activity Area Type
                         </a>
                     </li>
-                    <li>
-                        <a href="form.html">
-                            <i class="far fa-check-square"></i>Forms
+                    <li th:classappend="${activePage == 'lecturer-affiliation'} ? 'active'">
+                        <a th:href="@{/lecturer-affiliation/list}">
+                            <i class="far fa-check-square"></i>Lecturer Affiliation
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-calendar-alt"></i>Calendar
+                    <li th:classappend="${activePage == 'lecturer-title'} ? 'active'">
+                        <a th:href="@{/lecturer-title/list}">
+                            <i class="fas fa-calendar-alt"></i>Lecturer Title
                         </a>
                     </li>
-                    <li>
-                        <a href="map.html">
-                            <i class="fas fa-map-marker-alt"></i>Maps
+                    <li th:classappend="${activePage == 'lecturer-type'} ? 'active'">
+                        <a th:href="@{/lecturer-type/list}">
+                            <i class="fas fa-map-marker-alt"></i>LecturerType
                         </a>
                     </li>
                     <li class="has-sub">
