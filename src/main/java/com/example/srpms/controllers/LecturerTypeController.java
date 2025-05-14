@@ -16,43 +16,46 @@ public class LecturerTypeController {
     @Autowired
     private LecturerTypeService lecturerTypeService;
 
+    public Model activePage(Model model) {
+        return model.addAttribute("activePage","lecturer-type");
+    }
+
     @GetMapping("/list")
     public String list(Model model) {
-        model.addAttribute("activePage","lecturer-type");
+        activePage(model);
         model.addAttribute("lecturerType", lecturerTypeService.getAll());
         return "lecturertype/index";
     }
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        model.addAttribute("activePage","lecturer-type");
+        activePage(model);
         model.addAttribute("lecturerType", new Lecturertype());
         return "lecturertype/create";
     }
     @PostMapping("/create")
     public String createActivityAreatype(@ModelAttribute Lecturertype lecturertype, Model model) {
-        model.addAttribute("activePage","lecturer-type");
+        activePage(model);
         lecturerTypeService.add(lecturertype);
         return "redirect:/lecturer-type/list";
     }
     @GetMapping("/edit/{id}")
     public String showEditForm(Model model,@PathVariable Integer id) {
-        model.addAttribute("activePage","lecturer-type");
+        activePage(model);
         Lecturertype existing = lecturerTypeService.getById(id);
         model.addAttribute("lecturerType", existing);
         return "lecturertype/edit";
     }
     @PostMapping("/edit/{id}")
     public String updateActivityAreaType(@PathVariable Integer id, Lecturertype lecturertype, Model model) {
-        model.addAttribute("activePage","lecturer-type");
+        activePage(model);
         lecturertype.setId(id);
         lecturerTypeService.update(lecturertype);
         return "redirect:/lecturer-type/list";
     }
     @GetMapping("/delete/{id}")
     public String deleteActivityAreaType(@PathVariable Integer id,Model model) {
-        model.addAttribute("activePage","lecturer-type");
+        activePage(model);
         lecturerTypeService.deleteById(id);
         return "redirect:/lecturer-type/list";
     }
-
 }

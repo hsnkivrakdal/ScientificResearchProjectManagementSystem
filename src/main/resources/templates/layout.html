@@ -197,9 +197,9 @@
                             <i class="fas fa-map-marker-alt"></i>LecturerType
                         </a>
                     </li>
-                    <li class="has-sub">
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-copy"></i>Pages
+                    <li  th:classappend="${activePage == 'machinery-type'} ? 'active'">  <!--class="has-sub"-->
+                        <a th:href="@{/machinery-type/list}"> <!--class="js-arrow"-->
+                            <i class="fas fa-copy"></i>Machinery Types
                         </a>
                         <!--<ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
@@ -213,9 +213,9 @@
                             </li>
                         </ul>-->
                     </li>
-                    <li class="has-sub">
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-desktop"></i>UI Elements
+                    <li th:classappend="${activePage == 'personnel-type'} ? 'active'">
+                        <a th:href="@{/personnel-type/list}">
+                            <i class="fas fa-desktop"></i>Personnel Type
                         </a>
                         <!--
                         <ul class="list-unstyled navbar__sub-list js-sub-list">

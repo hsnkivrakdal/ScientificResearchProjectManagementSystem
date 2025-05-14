@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-  <title>LecturerAffiliation-Edit</title>
+  <title>MachineryType-Create</title>
 </head>
 <body>
 <section layout:fragment="content">
@@ -12,10 +12,10 @@
       <div class="col-lg-6">
         <div class="card">
           <div class="card-header">
-            <strong>LecturerAffiliation-Edit</strong>
+            <strong>MachineryType-Create</strong>
           </div>
           <div class="card-body card-block">
-            <form th:action="@{'/lecturer-affiliation/edit/' + ${lecturerAffiliation.id}}" th:object="${lecturerAffiliation}" method="post" class="form-horizontal">
+            <form th:action="@{/machinery-type/create}" th:object="${machineryType}" method="post" class="form-horizontal">
 
               <input type="hidden" th:field="*{id}" />
 
@@ -24,17 +24,17 @@
                   <label for="title" class="form-control-label">Title</label>
                 </div>
                 <div class="col-12 col-md-9">
-                  <input type="text" id="title" th:field="*{lecturerAffiliationTitle}" class="form-control" required>
-                  <small class="form-text text-muted">Edit the name of the record.</small>
+                  <input type="text" id="title" th:field="*{machineryTitle}" placeholder="Enter Machinery Type Name" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
                 </div>
               </div>
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-success btn-sm">
-                  <i class="fa fa-check"></i> Save
+                  <i class="fa fa-dot-circle-o"></i> Submit
                 </button>
-                <a th:href="@{/lecturer-title/list}" class="btn btn-danger btn-sm">
-                  <i class="fa fa-times"></i> Cancel
+                <a th:href="@{/machinery-type/list}" class="btn btn-danger btn-sm">
+                  <i class="fa fa-ban"></i> Cancel
                 </a>
               </div>
             </form>
