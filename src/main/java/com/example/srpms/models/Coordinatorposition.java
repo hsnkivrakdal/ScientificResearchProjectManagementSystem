@@ -27,4 +27,8 @@ public class Coordinatorposition {
     @OneToMany(mappedBy = "coordinatorPosition")
     private Set<Projectcoordinatorinformation> projectcoordinatorinformations = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return coordinatorPositionTitle;
+    }
 }

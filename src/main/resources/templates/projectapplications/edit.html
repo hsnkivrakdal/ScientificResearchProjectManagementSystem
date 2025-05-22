@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>ProjectType-Edit</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="container-fluid mt-4">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <strong>ProjectReportType-Edit</strong>
+          </div>
+          <div class="card-body card-block">
+            <form th:action="@{'/project-application/edit/' + ${projectApplication.id}}" th:object="${projectApplication}" method="post" class="form-horizontal">
+
+              <input type="hidden" th:field="*{id}" />
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="title" class="form-control-label">Title</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="title" th:field="*{projectApplicationtTitle}" class="form-control" required>
+                  <small class="form-text text-muted">Edit the name of the record.</small>
+                </div>
+                <div class="col col-md-3">
+                  <label for="information" class="form-control-label">Information</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="information" th:field="*{projectApplicationInformation}" class="form-control" required>
+                  <small class="form-text text-muted">Edit the name of the record.</small>
+                </div>
+                <div class="col col-md-3">
+                  <label for="projectApplicationStartDate" class="form-control-label">Start Date</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="date" id="projectApplicationStartDate" th:field="*{projectApplicationStartDate}" class="form-control" required>
+                  <small class="form-text text-muted">Edit the name of the record.</small>
+                </div>
+                <div class="col col-md-3">
+                  <label for="projectApplicationEndDate" class="form-control-label">End Date</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="date" id="projectApplicationEndDate" th:field="*{projectApplicationEndDate}" class="form-control" required>
+                  <small class="form-text text-muted">Edit the name of the record.</small>
+                </div>
+                <div class="col col-md-3">
+                  <label for="isActive" class="form-control-label">Is Active?</label>
+                </div>
+                <div class="col col-md-9">
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <label for="isActive" class="form-check-label ">
+                        <input type="checkbox" id="isActive" name="isActive" th:field="*{isActive}" value="isActive" class="form-check-input">Yes
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-success btn-sm">
+                  <i class="fa fa-check"></i> Save
+                </button>
+                <a th:href="@{/project-application/list}" class="btn btn-danger btn-sm">
+                  <i class="fa fa-times"></i> Cancel
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

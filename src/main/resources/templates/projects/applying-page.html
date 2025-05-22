@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>ProjectApplications-List</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="row m-t-30">
+    <div class="col-md-12">
+      <div class="table-responsive m-b-40">
+        <table class="table table-borderless table-data3">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Information</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="app : ${projectApplication}">
+            <td th:text="${app.id}"></td>
+            <td th:text="${app.projectApplicationtTitle}"></td>
+            <td th:text="${app.projectApplicationInformation}"></td>
+            <td th:text="${app.projectApplicationStartDate}"></td>
+            <td th:text="${app.projectApplicationEndDate}"></td>
+            <td>
+              <div class="">
+                <a th:href="@{/project/description/{applicationId}(applicationId=${app.id})}" class="btn btn-primary btn-sm" style="margin-right: 2px;">
+                  <i class="fa fa-plus"></i> Apply
+                </a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

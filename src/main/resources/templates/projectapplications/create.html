@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>ProjectApplication-Create</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="container-fluid mt-4">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <strong>ProjectApplication-Create</strong>
+          </div>
+          <div class="card-body card-block">
+            <form th:action="@{/project-application/create}" th:object="${projectApplication}" method="post" class="form-horizontal">
+
+              <input type="hidden" th:field="*{id}" />
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="title" class="form-control-label">Title</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="title" th:field="*{projectApplicationtTitle}" placeholder="Enter Project Application Title" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+                <div class="col col-md-3">
+                  <label for="information" class="form-control-label">Information</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="information" th:field="*{projectApplicationInformation}" placeholder="Enter Project Application Information" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+                <div class="col col-md-3">
+                  <label for="startDate" class="form-control-label">Start Date</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="date" id="startDate" th:field="*{projectApplicationStartDate}" placeholder="Enter Project Application Start Date" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+                <div class="col col-md-3">
+                  <label for="endDate" class="form-control-label">End Date</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="date" id="endDate" th:field="*{projectApplicationEndDate}" placeholder="Enter Project Application End Date" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+                <div class="col col-md-3">
+                    <label for="isActive" class="form-control-label">Is Active?</label>
+                </div>
+                <div class="col col-md-9">
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <label for="isActive" class="form-check-label ">
+                        <input type="checkbox" id="isActive" name="isActive" th:field="*{isActive}" value="isActive" class="form-check-input">Yes
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-success btn-sm">
+                  <i class="fa fa-dot-circle-o"></i> Submit
+                </button>
+                <a th:href="@{/project-application/list}" class="btn btn-danger btn-sm">
+                  <i class="fa fa-ban"></i> Cancel
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

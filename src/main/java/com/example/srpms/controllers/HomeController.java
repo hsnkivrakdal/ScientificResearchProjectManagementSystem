@@ -23,6 +23,7 @@ public class HomeController {
     }
     @GetMapping("/applicationlayout")
     public String applicationlayout() {
+
         return "newapplicationlayout";
     }
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -28,9 +29,11 @@ public class Projectapplication {
     @Column(name = "ProjectApplicationInformation", nullable = false, length = 50)
     private String projectApplicationInformation;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "ProjectApplicationStartDate", nullable = false)
     private LocalDate projectApplicationStartDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "ProjectApplicationEndDate", nullable = false)
     private LocalDate projectApplicationEndDate;
 
@@ -40,4 +43,8 @@ public class Projectapplication {
     @OneToMany(mappedBy = "projectApplication")
     private Set<Project> projects = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return projectApplicationtTitle;
+    }
 }

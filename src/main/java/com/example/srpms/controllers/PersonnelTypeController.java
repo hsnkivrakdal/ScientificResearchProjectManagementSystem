@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/personnel-type")
 public class PersonnelTypeController {
+
     @Autowired
     private PersonnelTypeService personnelTypeService;
 

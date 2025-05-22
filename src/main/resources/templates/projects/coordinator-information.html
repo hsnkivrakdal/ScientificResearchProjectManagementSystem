@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{newapplicationlayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Coordinator Information</title>
+</head>
+<body>
+<section layout:fragment="applicationContent">
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>ProjectApplication-Create</strong>
+        </div>
+        <div class="card-body card-block">
+          <form th:action="@{/project/crate-coordinator}" th:object="${projectCoordinatorInf}" method="post" class="form-horizontal">
+
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{project.id}">
+            <input type="hidden" th:field="*{lecturer}">
+
+            <div class="row form-group">
+              <div class="col col-md-3">
+                <label for="firstName" class="form-control-label">First Name</label>
+              </div>
+              <div class="col-12 col-md-9">
+                <input type="text" id="firstName" th:field="*{firstName}" placeholder="Enter First Name" class="form-control" required>
+                <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+              </div>
+              <div class="col col-md-3">
+                <label for="lastName" class="form-control-label">Last Name</label>
+              </div>
+              <div class="col-12 col-md-9">
+                <input type="text" id="lastName" th:field="*{lastName}" placeholder="Enter Last Name" class="form-control" required>
+                <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+              </div>
+              <div class="col col-md-3">
+                <label for="mail" class="form-control-label">E-mail</label>
+              </div>
+              <div class="col-12 col-md-9">
+                <input type="text" id="mail" th:field="*{mailAddress}" placeholder="Enter E-mail" class="form-control" required>
+                <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+              </div>
+              <div class="col col-md-3">
+                <label for="phone" class="form-control-label">Phone Number</label>
+              </div>
+              <div class="col-12 col-md-9">
+                <input type="text" id="phone" th:field="*{phoneNumber}" placeholder="Enter Phone Number" class="form-control" required>
+                <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+              </div>
+              <div class="col col-md-3">
+                <label for="doctorate" class="form-control-label">Doctorate Degree</label>
+              </div>
+              <div class="col col-md-9">
+                <input type="text" id="doctorate" th:field="*{doctorateDegree}" placeholder="Enter Doctorate Degree" class="form-control" required>
+                <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+              </div>
+              <div class="col col-md-3">
+                <label for="responsibility" class="form-control-label">Responsibility</label>
+              </div>
+              <div class="col col-md-9">
+                <input type="text" id="responsibility" th:field="*{coordinatorResponsibility}" placeholder="Enter Responsibility" class="form-control" required>
+                <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+              </div>
+              <div class="col col-md-3">
+                <label for="position" class="form-control-label">Position</label>
+              </div>
+              <div class="col col-md-9">
+                <select th:field="*{coordinatorPosition}" class="form-control" id="position" required>
+                  <option th:each="position : ${positions}"
+                          th:value="${position}"
+                          th:text="${position.coordinatorPositionTitle}">
+                  </option>
+                </select>
+                <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-success btn-sm">
+                <i class="fa fa-dot-circle-o"></i> Submit
+              </button>
+              <a th:href="@{/project-application/list}" class="btn btn-danger btn-sm">
+                <i class="fa fa-ban"></i> Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+</body>
+</html>

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
 
@@ -24,7 +25,7 @@ public class Projectinformation {
     @Column(name = "ProjectTitle", nullable = false, length = 150)
     private String projectTitle;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "ProjectApplicationDate")
     private Instant projectApplicationDate;
 

@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
 import java.util.LinkedHashSet;
@@ -23,14 +23,14 @@ public class Project {
     @Column(name = "ProjectId", nullable = false)
     private Integer id;
 
-    @Column(name = "ProjectTitle", nullable = false, length = 200)
+    @Column(name = "ProjectTitle", nullable = true, length = 200)
     private String projectTitle;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "ProjectApplicationDate")
     private Instant projectApplicationDate;
 
-    @Column(name = "ProjectCode", nullable = false, length = 50)
+    @Column(name = "ProjectCode", nullable = true, length = 50)
     private String projectCode;
 
     @Column(name = "IsApproved")
