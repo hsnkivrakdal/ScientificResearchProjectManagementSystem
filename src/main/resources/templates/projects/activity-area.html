@@ -1,0 +1,107 @@
+    <!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org"
+          xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+          layout:decorate="~{newapplicationlayout}">
+    <head>
+        <meta charset="UTF-8">
+        <title>Project Activity Areas</title>
+    </head>
+    <body>
+    <section layout:fragment="applicationContent">
+        <div class="card">
+            <div class="card-header">
+                <strong>Project Activity Areas - Add</strong>
+            </div>
+            <div class="card-body card-block">
+                <form th:action="@{/project/step/ACTIVITY_AREAS/{projectId}(projectId=${projectId})}" th:object="${projectActivityArea}" method="post" class="form-horizontal">
+
+                    <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{project.id}">
+
+                    <div class="row form-group">
+                        <div class="col col-md-3">
+                            <label for="activityAreaType" class="form-control-label">Activity Area Type Title</label>
+                        </div>
+                        <div class="col col-md-9">
+                            <select th:field="*{activityAreaType}" class="form-control" id="activityAreaType" required>
+                                <option th:each="activityareatype : ${getActivityAreaTypes}"
+                                        th:value="${activityareatype.id}"
+                                        th:text="${activityareatype.activityAreaTypeTitle}">
+                                </option>
+                            </select>
+                            <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="fa fa-dot-circle-o"></i> Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <strong>Project Activity Areas - List</strong>
+            </div>
+
+            <input type="hidden" th:field="*{project.id}">
+
+            <div class="card-body card-block">
+                    <table class="table table-borderless table-data3">
+                        <thead>
+                        <tr>
+                            <th style="width: 72%; text-align: center;">Activity Area Name</th>
+                            <th style="width: 28%; text-align: center;">Action</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="list : ${listProjectActivityAreas}">
+                            <td style="text-align: center;" th:text="${list.toString()}"></td>
+                            <td>
+                                <div class="center">
+                                    <a th:href="@{/project/project-activity-areas/delete/{id}/{projectId}(id=${list.id}, projectId=${projectId})}"
+                                       class="btn btn-danger btn-sm delBtn">
+                                        <i class="fa fa-trash"></i> Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+            <div class="d-flex justify-content-md-end mt-3 card-footer">
+                <a th:if="${currentStep != 'DESCRIPTION'}"
+                   th:href="@{/project/step/{step}/{id}(step=${currentStep.previous()}, id=${project.id})}"
+                   class="btn btn-secondary" style="margin-right: 10px;">← Back</a>
+
+                <a th:if="${currentStep != 'SUBMIT'}"
+                   th:href="@{/project/step/{step}/{id}(step=${currentStep.next()}, id=${project.id})}"
+                   class="btn btn-primary ms-auto">Next →</a>
+            </div>
+        </div>
+    </section>
+    <section layout:fragment="modals">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Modal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete the record?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a href="" class="btn btn-primary" id="delRef">Confirm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </body>
+    </html>

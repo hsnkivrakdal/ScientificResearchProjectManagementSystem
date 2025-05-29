@@ -27,4 +27,8 @@ public class Machinerytype {
     @OneToMany(mappedBy = "machineryType")
     private Set<Projectmachinery> projectmachineries = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return machineryTitle;
+    }
 }

@@ -29,4 +29,8 @@ public class Projectmachinery {
     @JoinColumn(name = "ProjectId")
     private Project project;
 
+    @Override
+    public String toString() {
+        return machineryType.getMachineryTitle();
+    }
 }

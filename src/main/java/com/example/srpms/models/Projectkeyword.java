@@ -26,4 +26,8 @@ public class Projectkeyword {
     @JoinColumn(name = "ProjectId")
     private Project project;
 
+    @Override
+    public String toString() {
+        return keywordType.getKeywordTypeTitle();
+    }
 }

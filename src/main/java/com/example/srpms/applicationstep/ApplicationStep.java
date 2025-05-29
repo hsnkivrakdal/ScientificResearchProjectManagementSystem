@@ -19,4 +19,9 @@ public enum ApplicationStep {
         return ord < steps.length ? steps[ord + 1] : SUBMIT;
     }
 
+    public ApplicationStep previous() {
+        int index = this.ordinal();
+        return (index > 0) ? values()[index - 1] : this;
+    }
+
 }

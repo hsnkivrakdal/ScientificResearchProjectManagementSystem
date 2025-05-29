@@ -16,23 +16,29 @@
     <input type="hidden" th:field="*{project.id}"/>
     <div class="card-body">
       <p><strong>Project Id:</strong> <span th:text="${project.projectCode}"></span></p>
-      <p><strong>Program Name:</strong> 2024 Spring - Scientific Research Project</p>
+      <p><strong>Program Name:</strong> <span th:text="${project.projectApplication}"></span> </p>
     </div>
   </div>
   <div class="card">
-    <div class="card-header">
-      <h4>Application Program General Information</h4>
-    </div>
-    <div class="card-body">
-      <p>
-        Dear Researcher,
-        <br>
-        <br>
-        Within the scope of Işık University’s BAP (Scientific Research Projects) program, which opens twice a year, project applications are now being accepted. During the application, it is mandatory to fill in and upload the current Application Form and its annexes (Annex-1: Resources, Annex-2: Budget and Justification) specific to the relevant module. Additionally, in line with our Open Science Policy, a Data Management Plan (DMP) must be prepared and submitted under the “Additional Files” section. Applications using outdated or incorrect documents, or those not following format and file rules, will not be evaluated and will be returned.<br><br>
+      <div class="card-header">
+        <h4>Application Program General Information</h4>
+      </div>
+        <div class="card-body">
+          <p>
+            Dear Researcher,
+            <br>
+            <br>
+            Within the scope of Işık University’s BAP (Scientific Research Projects) program, which opens twice a year, project applications are now being accepted. During the application, it is mandatory to fill in and upload the current Application Form and its annexes (Annex-1: Resources, Annex-2: Budget and Justification) specific to the relevant module. Additionally, in line with our Open Science Policy, a Data Management Plan (DMP) must be prepared and submitted under the “Additional Files” section. Applications using outdated or incorrect documents, or those not following format and file rules, will not be evaluated and will be returned.<br><br>
 
-        All project steps must be completed in the electronic system, and required files must be attached. After completing all sections, applicants must approve the application and initiate the e-signature process via the “My Applications” menu. All team members and institution representatives must hold a qualified electronic certificate (e-signature). Once the e-signature process is finalized, no changes can be made. Please ensure compliance with all guidelines to avoid your application being returned without evaluation.</p>
-  </div>
+            All project steps must be completed in the electronic system, and required files must be attached. After completing all sections, applicants must approve the application and initiate the e-signature process via the “My Applications” menu. All team members and institution representatives must hold a qualified electronic certificate (e-signature). Once the e-signature process is finalized, no changes can be made. Please ensure compliance with all guidelines to avoid your application being returned without evaluation.</p>
+        </div>
+    <div class="d-flex justify-content-md-end mt-3 card-footer">
+      <a th:if="${currentStep != 'SUBMIT'}"
+         th:href="@{/project/step/{step}/{id}(step=${currentStep.next()}, id=${project.id})}"
+         class="btn btn-primary ms-auto">Next →</a>
     </div>
+  </div>
+
 </section>
 </body>
 </html>

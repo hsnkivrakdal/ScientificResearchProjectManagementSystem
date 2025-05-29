@@ -26,4 +26,8 @@ public class Projectactivityarea {
     @JoinColumn(name = "ProjectId")
     private Project project;
 
+    @Override
+    public String toString() {
+        return activityAreaType.getActivityAreaTypeTitle();
+    }
 }

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{newapplicationlayout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Information</title>
+</head>
+<body>
+<section layout:fragment="applicationContent">
+  <div class="card">
+    <div class="card-header">
+      <strong>Project Information</strong>
+    </div>
+    <div class="card-body card-block">
+      <form th:action="@{/step/PROJECT_INFORMATION/{projectId}(projectId=${projectId})}" th:object="${projectInformation}" method="post" class="form-horizontal">
+
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{project.id}">
+
+        <div class="row form-group">
+          <div class="col col-md-3">
+            <label for="projectTitle" class="form-control-label">Project Title</label>
+          </div>
+          <div class="col-12 col-md-9">
+            <input type="text" id="projectTitle" th:field="*{projectTitle}" placeholder="Enter Project Title" class="form-control" required>
+            <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+          </div>
+          <div class="col col-md-3">
+            <label for="applicationDate" class="form-control-label">Application Date</label>
+          </div>
+          <div class="col-12 col-md-9">
+            <input type="text" id="applicationDate" th:field="*{projectApplicationDate}" placeholder="Enter Application Date" class="form-control" required>
+            <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+          </div>
+          <div class="col col-md-3">
+            <label for="projectSummary" class="form-control-label">Summary</label>
+          </div>
+          <div class="col-12 col-md-9">
+            <input type="text" id="projectSummary" th:field="*{projectSummary}" placeholder="Enter Project Summary" class="form-control" required>
+            <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+          </div>
+          <div class="col col-md-3">
+            <label for="projectHarmfulness" class="form-control-label">Harmfulness</label>
+          </div>
+          <div class="col col-md-9">
+            <div class="form-check">
+              <div class="checkbox">
+                <label for="projectHarmfulness" class="form-check-label ">
+                  <input type="checkbox" id="projectHarmfulness" name="projectHarmfulness" th:field="*{projectHarmfulness}" value="projectHarmfulness" class="form-check-input">Yes
+                  <small class="form-text text-muted">Does it have a harmful impact on environment?</small>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col col-md-3">
+            <label for="projectSupportLetter" class="form-control-label">Support Letter</label>
+          </div>
+          <div class="col col-md-9">
+            <div class="form-check">
+              <div class="checkbox">
+                <label for="projectSupportLetter" class="form-check-label ">
+                  <input type="checkbox" id="projectSupportLetter" name="projectSupportLetter" th:field="*{projectSupportLetter}" value="projectSupportLetter" class="form-check-input">Yes
+                  <small class="form-text text-muted">Do you have a letter of support from another organization?</small>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col col-md-3">
+            <label for="projectEthicsCommittee" class="form-control-label">Ethics Committee</label>
+          </div>
+          <div class="col col-md-9">
+            <div class="form-check">
+              <div class="checkbox">
+                <label for="projectEthicsCommittee" class="form-check-label ">
+                  <input type="checkbox" id="projectEthicsCommittee" name="projectEthicsCommittee" th:field="*{projectEthicsCommittee}" value="projectEthicsCommittee" class="form-check-input">Yes
+                  <small class="form-text text-muted">Is Ethics Committee permission certificate required?</small>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col col-md-3">
+            <label for="projectPermits" class="form-control-label">Permits</label>
+          </div>
+          <div class="col col-md-9">
+            <div class="form-check">
+              <div class="checkbox">
+                <label for="projectPermits" class="form-check-label ">
+                  <input type="checkbox" id="projectPermits" name="projectPermits" th:field="*{projectPermits}" value="projectPermits" class="form-check-input">Yes
+                  <small class="form-text text-muted">Are legal or special permits required?</small>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col col-md-3">
+            <label for="projectProformaInvoice" class="form-control-label">Proforma</label>
+          </div>
+          <div class="col col-md-9">
+            <div class="form-check">
+              <div class="checkbox">
+                <label for="projectProformaInvoice" class="form-check-label ">
+                  <input type="checkbox" id="projectProformaInvoice" name="projectProformaInvoice" th:field="*{projectProformaInvoice}" value="projectProformaInvoice" class="form-check-input">Yes
+                  <small class="form-text text-muted">Is proforma invoice required?</small>
+                </label>
+              </div>
+            </div>
+          </div>
+            <div class="col col-md-3">
+              <label for="budget" class="form-control-label">Budget</label>
+            </div>
+            <div class="col-12 col-md-9">
+              <input type="text" id="budget" th:field="*{projectBudget}" placeholder="Enter Budget" class="form-control" required> TL
+              <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+            </div>
+              <div class="col col-md-3">
+                <label for="duration" class="form-control-label">Duration</label>
+              </div>
+              <div class="col-12 col-md-9">
+                <input type="text" id="duration" th:field="*{projectDuration}" placeholder="Enter Budget" class="form-control" required> MONTH
+                <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+              </div>
+        </div>
+      </form>
+    </div>
+    <div class="d-flex justify-content-md-end mt-3 card-footer">
+      <a th:if="${currentStep != 'DESCRIPTION'}"
+         th:href="@{/project/step/{step}/{id}(step=${currentStep.previous()}, id=${project.id})}"
+         class="btn btn-secondary" style="margin-right: 10px;">← Back</a>
+
+      <a th:if="${currentStep != 'SUBMIT'}"
+         th:href="@{/project/step/{step}/{id}(step=${currentStep.next()}, id=${project.id})}"
+         class="btn btn-primary ms-auto">Next →</a>
+    </div>
+  </div>
+</section>
+</body>
+</html>

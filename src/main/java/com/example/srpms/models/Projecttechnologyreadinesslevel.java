@@ -19,7 +19,7 @@ public class Projecttechnologyreadinesslevel {
     private Integer id;
 
     @Column(name = "FieldOfProjectType", nullable = false)
-    private Boolean fieldOfProjectType = false;
+    private Boolean fieldOfProjectType = true;
 
     @Column(name = "CurrentTecReadLevelJustification", nullable = false, length = 300)
     private String currentTecReadLevelJustification;

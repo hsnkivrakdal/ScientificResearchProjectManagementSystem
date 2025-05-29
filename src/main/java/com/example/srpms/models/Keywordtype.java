@@ -27,4 +27,8 @@ public class Keywordtype {
     @OneToMany(mappedBy = "keywordType")
     private Set<Projectkeyword> projectkeywords = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return keywordTypeTitle;
+    }
 }

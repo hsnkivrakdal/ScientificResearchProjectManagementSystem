@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{newapplicationlayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Machinery</title>
+</head>
+<body>
+<section layout:fragment="applicationContent">
+    <div class="card">
+        <div class="card-header">
+            <strong>Project Machinery - Add</strong>
+        </div>
+        <div class="card-body card-block">
+            <form th:action="@{/project/step/MACHINERY/{projectId}(projectId=${projectId})}" th:object="${projectMachinery}" method="post" class="form-horizontal">
+
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{project.id}">
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="machineryType" class="form-control-label">Machinery Type Title</label>
+                    </div>
+                    <div class="col col-md-9">
+                        <select th:field="*{machineryType}" class="form-control" id="machineryType" required>
+                            <option th:each="mt : ${getMachineryTypes}"
+                                    th:value="${mt.id}"
+                                    th:text="${mt.machineryTitle}">
+                            </option>
+                        </select>
+                        <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="machineryTitle" class="form-control-label">Machinery Title</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input class="form-control" type="text" th:field="*{machineryTitle}" placeholder="Enter specific title..." id="machineryTitle">
+                        <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <strong>Project Machinery - List</strong>
+        </div>
+        <div class="card-body card-block">
+            <table class="table table-borderless table-data3">
+                <thead>
+                <tr>
+                    <th style="width: 60%; text-align: center;">Machinery Title</th>
+                    <th style="width: 30%; text-align: center;">Machinery Type</th>
+                    <th style="width: 10%; text-align: center;">Action</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="list : ${listProjectMachinery}">
+                    <td style="text-align: center;" th:text="${list.machineryTitle}"></td>
+                    <td style="text-align: center;" th:text="${list.toString()}"></td>
+                    <td>
+                        <div class="center">
+                            <a th:href="@{'/keyword-types/delete/' + ${list.id}}"
+                               class="btn btn-danger btn-sm delBtn">
+                                <i class="fa fa-trash"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-md-end mt-3 card-footer">
+            <a th:if="${currentStep != 'DESCRIPTION'}"
+               th:href="@{/project/step/{step}/{id}(step=${currentStep.previous()}, id=${project.id})}"
+               class="btn btn-secondary" style="margin-right: 10px;">← Back</a>
+
+            <a th:if="${currentStep != 'SUBMIT'}"
+               th:href="@{/project/step/{step}/{id}(step=${currentStep.next()}, id=${project.id})}"
+               class="btn btn-primary ms-auto">Next →</a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

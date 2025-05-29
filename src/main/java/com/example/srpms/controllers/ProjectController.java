@@ -1,12 +1,8 @@
 package com.example.srpms.controllers;
 
 import com.example.srpms.applicationstep.ApplicationStep;
-import com.example.srpms.models.Project;
-import com.example.srpms.models.Projectapplication;
-import com.example.srpms.models.Projectcoordinatorinformation;
-import com.example.srpms.services.ProjectCoordinatorInformationService;
+import com.example.srpms.models.*;
 import com.example.srpms.services.ProjectService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +29,7 @@ public class ProjectController {
         if (project == null) {
             throw new RuntimeException("Project not found with Id: " + projectId);
         }
+
         model.addAttribute("currentStep", currentStep);
         model.addAttribute("project", project);
 
@@ -40,13 +37,38 @@ public class ProjectController {
         switch (currentStep) {
             case DESCRIPTION:
                 return "projects/application-description";
-
             case COORDINATOR:
                 Projectcoordinatorinformation pci = new Projectcoordinatorinformation();
                 pci.setProject(project);
                 model.addAttribute("projectCoordinatorInf", pci);
                 model.addAttribute("positions", projectService.getCoordinatorPositions());
                 return "projects/coordinator-information";
+            case PROJECT_INFORMATION:
+                Projectinformation pi = new Projectinformation();
+                pi.setProject(project);
+                model.addAttribute("projectInformation", pi);
+                return "projects/project-information";
+            case ACTIVITY_AREAS:
+                Projectactivityarea paa = new Projectactivityarea();
+                paa.setProject(project);
+                model.addAttribute("projectActivityArea", paa);
+                model.addAttribute("getActivityAreaTypes",projectService.listActivityAreas());
+                model.addAttribute("listProjectActivityAreas",projectService.getProjectActivityAreas(projectId));
+                return "projects/activity-area";
+            case KEYWORDS:
+                Projectkeyword pk = new Projectkeyword();
+                pk.setProject(project);
+                model.addAttribute("projectKeyword", pk);
+                model.addAttribute("getKeywordTypes",projectService.listKeywords());
+                model.addAttribute("listProjectKeywords",projectService.getProjectKeywords(projectId));
+                return "projects/keyword";
+            case MACHINERY:
+                Projectmachinery pm = new Projectmachinery();
+                pm.setProject(project);
+                model.addAttribute("projectMachinery", pm);
+                model.addAttribute("getMachineryTypes", projectService.listProjectMachinery());
+                model.addAttribute("listProjectMachinery",projectService.getProjectMachinery(projectId));
+                return "projects/machinery";
             default:
                 throw new IllegalStateException("Unknown step: " + step);
         }
@@ -94,5 +116,53 @@ public class ProjectController {
         pci.setProject(projectService.getById(projectId));
         projectService.postProjectCoordinator(pci);
         return "redirect:/project/step/PROJECT_INFORMATION/" + projectId;
+    }
+
+    @PostMapping("/step/PROJECT_INFORMATION/{projectId}")
+    public String createCoordinatorInf(@PathVariable Integer projectId,
+                                       @ModelAttribute Projectinformation pi,
+                                       Model model) {
+        activePage(model);
+        pi.setProject(projectService.getById(projectId));
+        projectService.postProjectInformation(pi);
+        return "redirect:/project/step/ACTIVITY_AREAS/" + projectId;
+    }
+
+    @GetMapping("/project-activity-areas/delete/{id}/{projectId}")
+    public String deleteActivityAreaType(@PathVariable Integer id,
+                                         @PathVariable Integer projectId ,
+                                         Model model) {
+        activePage(model);
+        projectService.deleteProjectActivityArea(id);
+        return "redirect:/project/step/ACTIVITY_AREAS/" + projectId;
+    }
+
+    @PostMapping("/step/ACTIVITY_AREAS/{projectId}")
+    public String createProjectActivityArea(@PathVariable Integer projectId,
+                                            @ModelAttribute Projectactivityarea paa,
+                                            Model model) {
+        activePage(model);
+        paa.setProject(projectService.getById(projectId));
+        projectService.postProjectActivityArea(paa);
+        return "redirect:/project/step/ACTIVITY_AREAS/" + projectId;
+    }
+    @PostMapping("/step/KEYWORDS/{projectId}")
+    public String createProjectKeyword(@PathVariable Integer projectId,
+                                            @ModelAttribute Projectkeyword pk,
+                                            Model model) {
+        activePage(model);
+        pk.setProject(projectService.getById(projectId));
+        projectService.postProjectKeyword(pk);
+        return "redirect:/project/step/KEYWORDS/" + projectId;
+    }
+
+    @PostMapping("/step/MACHINERY/{projectId}")
+    public String createProjectMachinery(@PathVariable Integer projectId,
+                                       @ModelAttribute Projectmachinery pm,
+                                       Model model) {
+        activePage(model);
+        pm.setProject(projectService.getById(projectId));
+        projectService.postProjectMachinery(pm);
+        return "redirect:/project/step/MACHINERY/" + projectId;
     }
 }

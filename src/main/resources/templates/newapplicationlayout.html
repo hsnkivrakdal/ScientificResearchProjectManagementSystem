@@ -32,7 +32,7 @@
                         <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
-                           th:href="@{/}">
+                           th:href="@{/project/step/PROJECT_INFORMATION/{projectId}(projectId=${project.id})}">
                             <i class="fa fa-angle-right"></i>Project Information
                         </a>
                     </li>
@@ -40,7 +40,7 @@
                         <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
-                           th:href="@{/}">
+                           th:href="@{/project/step/ACTIVITY_AREAS/{projectId}(projectId=${project.id})}">
                             <i class="fa fa-angle-right"></i>Activity Areas
                         </a>
                     </li>
@@ -48,7 +48,7 @@
                         <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
-                           th:href="@{/}">
+                           th:href="@{/project/step/KEYWORDS/{projectId}(projectId=${project.id})}">
                             <i class="fa fa-angle-right"></i>Keywords
                         </a>
                     </li>
@@ -80,7 +80,7 @@
                         <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
-                           th:href="@{/}">
+                           th:href="@{/project/step/MACHINERY/{projectId}(projectId=${project.id})}">
                             <i class="fa fa-angle-right"></i>Machinery & Equipment Information
                         </a>
                     </li>
