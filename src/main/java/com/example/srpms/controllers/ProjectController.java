@@ -3,11 +3,29 @@ package com.example.srpms.controllers;
 import com.example.srpms.applicationstep.ApplicationStep;
 import com.example.srpms.models.*;
 import com.example.srpms.services.ProjectService;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.Year;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/project")
@@ -17,7 +35,7 @@ public class ProjectController {
     private ProjectService projectService;
 
     public Model activePage(Model model) {
-        return model.addAttribute("activeStep","project");
+        return model.addAttribute("activeStep","projectContinue");
     }
 
     @GetMapping("/step/{step}/{projectId}")
@@ -62,6 +80,26 @@ public class ProjectController {
                 model.addAttribute("getKeywordTypes",projectService.listKeywords());
                 model.addAttribute("listProjectKeywords",projectService.getProjectKeywords(projectId));
                 return "projects/keyword";
+            case TECHNOLOGY_LEVEL:
+                Projecttechnologyreadinesslevel ptrl = new Projecttechnologyreadinesslevel();
+                ptrl.setProject(project);
+                model.addAttribute("projectTechnologyReadinessLevel", ptrl);
+                model.addAttribute("getTechReadLevelType",projectService.listTechnologyReadinessLevelType());
+                model.addAttribute("listProjectTechReadLevel", projectService.getProjectTechnologyReadinessLevels(projectId));
+                return "projects/technology-level";
+            case PERSONNEL:
+                Projectpersonnel pp = new Projectpersonnel();
+                pp.setProject(project);
+                model.addAttribute("projectPersonnel", pp);
+                model.addAttribute("getPersonnelTypes",projectService.listPersonnelTypes());
+                model.addAttribute("listProjectPersonnel",projectService.getProjectPersonnel(projectId));
+                return "projects/personnel";
+            case FILES:
+                Projectadditionalfile paf = new Projectadditionalfile();
+                paf.setProject(project);
+                model.addAttribute("projectAdditionalFile", paf);
+                model.addAttribute("listProjectAdditionalFiles",projectService.getProjectAdditionalFiles(projectId));
+                return "projects/additional-files";
             case MACHINERY:
                 Projectmachinery pm = new Projectmachinery();
                 pm.setProject(project);
@@ -129,9 +167,9 @@ public class ProjectController {
     }
 
     @GetMapping("/project-activity-areas/delete/{id}/{projectId}")
-    public String deleteActivityAreaType(@PathVariable Integer id,
-                                         @PathVariable Integer projectId ,
-                                         Model model) {
+    public String deleteProjectActivityArea(@PathVariable Integer id,
+                                            @PathVariable Integer projectId ,
+                                            Model model) {
         activePage(model);
         projectService.deleteProjectActivityArea(id);
         return "redirect:/project/step/ACTIVITY_AREAS/" + projectId;
@@ -146,6 +184,16 @@ public class ProjectController {
         projectService.postProjectActivityArea(paa);
         return "redirect:/project/step/ACTIVITY_AREAS/" + projectId;
     }
+
+    @GetMapping("/project-keyword/delete/{id}/{projectId}")
+    public String deleteProjectKeyword(@PathVariable Integer id,
+                                       @PathVariable Integer projectId ,
+                                       Model model) {
+        activePage(model);
+        projectService.deleteProjectKeyword(id);
+        return "redirect:/project/step/KEYWORDS/" + projectId;
+    }
+
     @PostMapping("/step/KEYWORDS/{projectId}")
     public String createProjectKeyword(@PathVariable Integer projectId,
                                             @ModelAttribute Projectkeyword pk,
@@ -156,13 +204,149 @@ public class ProjectController {
         return "redirect:/project/step/KEYWORDS/" + projectId;
     }
 
+    @GetMapping("/project-machinery/delete/{id}/{projectId}")
+    public String deleteProjectMachinery(@PathVariable Integer id,
+                                         @PathVariable Integer projectId ,
+                                         Model model) {
+        activePage(model);
+        projectService.deleteProjectMachinery(id);
+        return "redirect:/project/step/MACHINERY/" + projectId;
+    }
+
     @PostMapping("/step/MACHINERY/{projectId}")
     public String createProjectMachinery(@PathVariable Integer projectId,
-                                       @ModelAttribute Projectmachinery pm,
-                                       Model model) {
+                                         @ModelAttribute Projectmachinery pm,
+                                         Model model) {
         activePage(model);
         pm.setProject(projectService.getById(projectId));
         projectService.postProjectMachinery(pm);
         return "redirect:/project/step/MACHINERY/" + projectId;
     }
+
+    @GetMapping("/project-personnel/delete/{id}/{projectId}")
+    public String deleteProjectPersonnel(@PathVariable Integer id,
+                                         @PathVariable Integer projectId ,
+                                         Model model) {
+        activePage(model);
+        projectService.deleteProjectPersonnel(id);
+        return "redirect:/project/step/PERSONNEL/" + projectId;
+    }
+
+    @PostMapping("/step/PERSONNEL/{projectId}")
+    public String createProjectPersonnel(@PathVariable Integer projectId,
+                                         @ModelAttribute Projectpersonnel pp,
+                                         Model model) {
+        activePage(model);
+        pp.setProject(projectService.getById(projectId));
+        projectService.postProjectPersonnel(pp);
+        return "redirect:/project/step/PERSONNEL/" + projectId;
+    }
+
+    @GetMapping("/project-additional-file/delete/{id}/{projectId}")
+    public String deleteProjectAdditionalFile(@PathVariable Integer id,
+                                              @PathVariable Integer projectId ,
+                                              Model model) {
+        activePage(model);
+        projectService.deleteProjectAdditionalFile(id);
+        return "redirect:/project/step/FILES/" + projectId;
+    }
+
+    @PostMapping("/step/FILES/{projectId}")
+    public String uploadFile(@PathVariable Integer projectId,
+                             @ModelAttribute Projectadditionalfile paf,
+                             @RequestParam("fileDocument") MultipartFile file,
+                             Model model) throws IOException {
+
+        activePage(model);
+        Project project = projectService.getById(projectId);
+
+        String uploadDir = "additionalFiles/" + projectId + "/";
+        File folder = new File(uploadDir);
+        if (!folder.exists()) folder.mkdirs();
+
+        String originalName = file.getOriginalFilename();
+        String uniqueName = UUID.randomUUID() + "_" + originalName;
+
+        Path filePath = Paths.get(uploadDir + uniqueName);
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        paf.setProject(project);
+        paf.setFileName(originalName);
+        paf.setFilePath(uploadDir + uniqueName);
+        paf.setFileType(file.getContentType());
+
+        projectService.postProjectAdditionalFile(paf);
+
+        return "redirect:/project/step/FILES/" + projectId;
+    }
+
+    @GetMapping("/additional-file/view/{id}")
+    public void viewFile(@PathVariable Integer id, HttpServletResponse response) throws IOException {
+        Projectadditionalfile fileEntity = projectService.getProjectAdditionalFileById(id);
+
+        File file = new File(fileEntity.getFilePath());
+        if (!file.exists()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
+        response.setContentType(fileEntity.getFileType());
+        response.setHeader("Content-Disposition", "inline; filename=\"" + fileEntity.getFileName() + "\"");
+        Files.copy(file.toPath(), response.getOutputStream());
+        response.flushBuffer();
+    }
+
+    @PostMapping("/step/TECHNOLOGY_LEVEL/{projectId}")
+    public String saveTechReadiness(
+            @PathVariable Integer projectId,
+            @ModelAttribute Projecttechnologyreadinesslevel ptrl,
+            @RequestParam("techReadLevelFileDoc") MultipartFile file,
+            Model model
+    ) throws IOException {
+        Project project = projectService.getById(projectId);
+
+        if (!ptrl.getFieldOfProjectType() && !file.isEmpty()) {
+
+            String uploadDir = "technologyReadinessLevelDocuments/" + projectId +"/";
+
+            File folder = new File(uploadDir);
+            if (!folder.exists()) folder.mkdirs();
+
+            String originalFileName = file.getOriginalFilename();
+            String uniqueName = UUID.randomUUID() + "_" + originalFileName;
+
+
+            Path filePath = Paths.get(uploadDir + uniqueName);
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            ptrl.setProject(project);
+            ptrl.setFileName(originalFileName);
+            ptrl.setFileType(file.getContentType());
+            ptrl.setTechReadLevelFile(filePath.toString());
+        }
+
+        projectService.postProjectTechnologyReadinessLevel(ptrl);
+        return "redirect:/project/step/TECHNOLOGY_LEVEL/" + projectId;
+    }
+
+    @GetMapping("/techread-file/view/{id}")
+    public ResponseEntity<Resource> viewTechReadFile(@PathVariable Integer id) throws IOException {
+        Projecttechnologyreadinesslevel trl = projectService.getProjectTechnologyReadinessLevelById(id);
+        if (trl == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Path path = Paths.get(trl.getTechReadLevelFile());
+        Resource resource = new UrlResource(path.toUri());
+
+        if (!resource.exists() || !resource.isReadable()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(trl.getFileType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + trl.getFileName() + "\"")
+                .body(resource);
+    }
+
 }

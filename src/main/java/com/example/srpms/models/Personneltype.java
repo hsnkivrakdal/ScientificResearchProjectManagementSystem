@@ -27,4 +27,8 @@ public class Personneltype {
     @OneToMany(mappedBy = "projectPersonnelType")
     private Set<Projectpersonnel> projectpersonnels = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return personnelTypeTitle;
+    }
 }

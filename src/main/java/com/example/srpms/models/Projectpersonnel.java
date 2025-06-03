@@ -44,4 +44,8 @@ public class Projectpersonnel {
     @JoinColumn(name = "ProjectId")
     private Project project;
 
+    @Override
+    public String toString() {
+        return projectPersonnelType.toString();
+    }
 }

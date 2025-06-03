@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{newapplicationlayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Technology Readiness Level</title>
+    <script th:inline="javascript">
+        function toggleExtraFields() {
+            const fieldOfProjectType = document.getElementById('fieldOfProjectType');
+            const extraFields = document.getElementById('extraFields');
+            extraFields.style.display = fieldOfProjectType.value === 'false' ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body>
+<section layout:fragment="applicationContent">
+    <div class="card">
+        <div class="card-header">
+            <strong>Technology Readiness Level</strong>
+        </div>
+        <div class="card-body card-block">
+            <form th:action="@{/project/step/TECHNOLOGY_LEVEL/{projectId}(projectId=${projectId})}"
+                  th:object="${projectTechnologyReadinessLevel}"
+                  method="post"
+                  class="form-horizontal"
+                  enctype="multipart/form-data">
+
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{project.id}" />
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="fieldOfProjectType" class="form-control-label">
+                            Is the project submitted in the field of Social Sciences and Humanities?
+                        </label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <select th:field="*{fieldOfProjectType}" id="fieldOfProjectType" class="form-control" onchange="toggleExtraFields()">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="extraFields" style="display: none;">
+                    <div class="row form-group">
+                        <div class="col col-md-3">
+                            <label class="form-control-label">Existing TRL</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <select th:field="*{existingTechnologyLevel}" class="form-control">
+                                <option th:each="trl : ${getTechReadLevelType}"
+                                        th:value="${trl.id}"
+                                        th:text="${trl.technologyReadinessLevelTypeDefiniton}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col col-md-3">
+                            <label class="form-control-label">Current TRL Justification</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <textarea th:field="*{currentTecReadLevelJustification}" class="form-control" rows="3" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col col-md-3">
+                            <label class="form-control-label">Target TRL</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <select th:field="*{targettedTechnologyLevel}" class="form-control">
+                                <option th:each="trl : ${getTechReadLevelType}"
+                                        th:value="${trl.id}"
+                                        th:text="${trl.technologyReadinessLevelTypeDefiniton}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col col-md-3">
+                            <label class="form-control-label">Target TRL Justification</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <textarea th:field="*{targettedTecReadLevelJustification}" class="form-control" rows="3" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col col-md-3">
+                            <label class="form-control-label">TRL File Upload</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <input type="file" name="techReadLevelFileDoc" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <strong>Technology Readiness Level Uploaded Documents</strong>
+        </div>
+        <div class="card-body card-block">
+            <table class="table table-borderless table-data3">
+                <thead>
+                <tr>
+                    <th style="text-align: center;">File Name</th>
+                    <th style="text-align: center;">Action</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="list : ${listProjectTechReadLevel}">
+                    <td style="text-align: center;">
+                        <a th:href="@{'/project/techread-file/view/' + ${list.id}}"
+                           th:text="${list.fileName}" target="_blank"></a>
+                    </td>
+                    <td style="display: flex; width:0px; text-align: center;">
+                        <div class="center">
+                            <a th:href="@{/project-additional-file/delete/{id}/{projectId}(id=${list.id}, projectId=${projectId})}"
+                               class="btn btn-danger btn-sm delBtn">
+                                <i class="fa fa-trash"></i>Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-md-end mt-3 card-footer">
+            <a th:if="${currentStep != 'DESCRIPTION'}"
+               th:href="@{/project/step/{step}/{id}(step=${currentStep.previous()}, id=${project.id})}"
+               class="btn btn-secondary" style="margin-right: 10px;">← Back</a>
+
+            <a th:if="${currentStep != 'SUBMIT'}"
+               th:href="@{/project/step/{step}/{id}(step=${currentStep.next()}, id=${project.id})}"
+               class="btn btn-primary ms-auto">Next →</a>
+        </div>
+    </div>
+</section>
+<section layout:fragment="modals">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the record?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="" class="btn btn-primary" id="delRef">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Sayfa yüklendiğinde field değerine göre alanı göster
+    document.addEventListener("DOMContentLoaded", toggleExtraFields);
+</script>
+</body>
+</html>

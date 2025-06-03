@@ -116,6 +116,86 @@ public class ProjectService extends BusinessServiceImplementation<Project, Integ
         return projectKeywords;
     }
 
+    public void deleteProjectKeyword(Integer id){
+        projectKeywordService.deleteById(id);
+    }
+
+    @Autowired
+    public ProjectTechnologyReadinessLevelService projectTechnologyReadinessLevelService;
+
+    @Autowired
+    public TechnologyReadinessLevelTypeService technologyReadinessLevelTypeService;
+
+    public void postProjectTechnologyReadinessLevel(Projecttechnologyreadinesslevel projecttechnologyreadinesslevel) {
+        projectTechnologyReadinessLevelService.add(projecttechnologyreadinesslevel);
+    }
+
+    public List<Technologyreadinessleveltype> listTechnologyReadinessLevelType(){
+        List<Technologyreadinessleveltype> technologyreadinessleveltypes = technologyReadinessLevelTypeService.getAll();
+        return technologyreadinessleveltypes;
+    }
+
+    public List<Projecttechnologyreadinesslevel> getProjectTechnologyReadinessLevels(Integer projectId){
+        List<Projecttechnologyreadinesslevel> projectTechnologyreadinessLevels = projectTechnologyReadinessLevelService.getAll().stream().filter(projecttechnologyreadinesslevel -> projecttechnologyreadinesslevel.getProject().getId().equals(projectId)).toList();
+        return projectTechnologyreadinessLevels;
+    }
+
+    public Projecttechnologyreadinesslevel getProjectTechnologyReadinessLevelById(Integer id){
+        Projecttechnologyreadinesslevel projecttechnologyreadinesslevel = projectTechnologyReadinessLevelService.getById(id);
+        return projecttechnologyreadinesslevel;
+    }
+
+
+    @Autowired
+    public ProjectPersonnelService projectPersonnelService;
+
+    @Autowired
+    public PersonnelTypeService personnelTypeService;
+
+    public List<Projectpersonnel> getProjectPersonnel(Integer projectId){
+        List<Projectpersonnel> personnel = projectPersonnelService.getAll().stream().filter(projectpersonnel -> projectpersonnel.getProject().getId().equals(projectId)).toList();
+        return personnel;
+    }
+
+    public List<Personneltype> listPersonnelTypes(){
+        List<Personneltype> personnelTypes = personnelTypeService.getAll();
+        return personnelTypes;
+    }
+
+    public void postProjectPersonnel(Projectpersonnel projectpersonnel) {
+        projectpersonnel.setIdentityNumber(projectpersonnel.getIdentityNumber());
+        projectpersonnel.setFirstName(projectpersonnel.getFirstName());
+        projectpersonnel.setLastName(projectpersonnel.getLastName());
+        projectpersonnel.setTitle(projectpersonnel.getTitle());
+        projectpersonnel.setAffiliation(projectpersonnel.getAffiliation());
+        projectPersonnelService.add(projectpersonnel);
+    }
+
+    public void deleteProjectPersonnel(Integer id){
+        projectPersonnelService.deleteById(id);
+    }
+
+    @Autowired
+    public ProjectAdditionalFilesService projectAdditionalFilesService;
+
+    public List<Projectadditionalfile> getProjectAdditionalFiles(Integer projectId){
+        List<Projectadditionalfile> projectAdditionalFiles = projectAdditionalFilesService.getAll().stream().filter(projectadditionalfile -> projectadditionalfile.getProject().getId().equals(projectId)).toList();
+        return projectAdditionalFiles;
+    }
+
+    public void postProjectAdditionalFile(Projectadditionalfile file) {
+        projectAdditionalFilesService.add(file);
+    }
+
+    public Projectadditionalfile getProjectAdditionalFileById(Integer id){
+        Projectadditionalfile projectadditionalfile = projectAdditionalFilesService.getById(id);
+        return projectadditionalfile;
+    }
+
+    public void deleteProjectAdditionalFile(Integer id){
+        projectAdditionalFilesService.deleteById(id);
+    }
+
     @Autowired
     public ProjectMachineryService projectMachineryService;
 
@@ -135,6 +215,10 @@ public class ProjectService extends BusinessServiceImplementation<Project, Integ
     public List<Projectmachinery> getProjectMachinery(Integer projectId){
         List<Projectmachinery> projectMachinery = projectMachineryService.getAll().stream().filter(projectmachinery -> projectmachinery.getProject().getId().equals(projectId)).toList();
         return projectMachinery;
+    }
+
+    public void deleteProjectMachinery(Integer id){
+        projectMachineryService.deleteById(id);
     }
 
 }

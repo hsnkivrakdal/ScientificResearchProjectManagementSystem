@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{newapplicationlayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Personnel</title>
+</head>
+<body>
+<section layout:fragment="applicationContent">
+    <div class="card">
+        <div class="card-header">
+            <strong>Coordinator Information</strong>
+        </div>
+        <div class="card-body card-block">
+            <form th:action="@{/project/step/PERSONNEL/{projectId}(projectId=${projectId})}" th:object="${projectPersonnel}" method="post" class="form-horizontal">
+
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{project.id}">
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="identityNumber" class="form-control-label">Identity Number</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input type="text" id="identityNumber" th:field="*{identityNumber}" placeholder="Enter Identity Number" class="form-control" required>
+                        <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                    </div>
+                    <div class="col col-md-3">
+                        <label for="firstName" class="form-control-label">First Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input type="text" id="firstName" th:field="*{firstName}" placeholder="Enter First Name" class="form-control" required>
+                        <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                    </div>
+                    <div class="col col-md-3">
+                        <label for="lastName" class="form-control-label">Last Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input type="text" id="lastName" th:field="*{lastName}" placeholder="Enter Last Name" class="form-control" required>
+                        <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                    </div>
+                    <div class="col col-md-3">
+                        <label for="title" class="form-control-label">Title</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input type="text" id="title" th:field="*{title}" placeholder="Enter Personnel Title" class="form-control" required>
+                        <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                    </div>
+                    <div class="col col-md-3">
+                        <label for="affiliation" class="form-control-label">Affiliation</label>
+                    </div>
+                    <div class="col col-md-9">
+                        <input type="text" id="affiliation" th:field="*{affiliation}" placeholder="Enter Personnel Affiliation" class="form-control" required>
+                        <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                    </div>
+                    <div class="col col-md-3">
+                        <label for="responsibility" class="form-control-label">Responsibility</label>
+                    </div>
+                    <div class="col col-md-9">
+                        <textarea type="text" id="responsibility" th:field="*{responsibility}" placeholder="Enter Personnel Responsibility" class="form-control" style="height: 150px;" required></textarea>
+                        <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                    </div>
+                    <div class="col col-md-3">
+                        <label for="position" class="form-control-label">Personnel Type</label>
+                    </div>
+                    <div class="col col-md-9">
+                        <select th:field="*{projectPersonnelType}" class="form-control" id="position" required>
+                            <option th:each="type : ${getPersonnelTypes}"
+                                    th:value="${type.id}"
+                                    th:text="${type.personnelTypeTitle}">
+                            </option>
+                        </select>
+                        <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <strong>Project Personnel - List</strong>
+        </div>
+        <div class="card-body card-block">
+            <table class="table table-borderless table-data3">
+                <thead>
+                <tr>
+                    <th style="text-align: center;">Identity Number</th>
+                    <th style="text-align: center;">First Name</th>
+                    <th style="text-align: center;">Last Name</th>
+                    <th style="text-align: center;">Affiliation</th>
+                    <th style="text-align: center;">Personnel Type</th>
+                    <th style="text-align: center;">Action</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="list : ${listProjectPersonnel}">
+                    <td style="text-align: center;" th:text="${list.identityNumber}"></td>
+                    <td style="text-align: center;" th:text="${list.firstName}"></td>
+                    <td style="text-align: center;" th:text="${list.lastName}"></td>
+                    <td style="text-align: center;" th:text="${list.affiliation}"></td>
+                    <td style="text-align: center;" th:text="${list.toString()}"></td>
+                    <td style="display: flex; width:0px; text-align: center;">
+                        <div class="center">
+                            <a th:href="@{'/keyword-types/delete/' + ${list.id}}"
+                               class="btn btn-info btn-sm" style="margin-right: 2px;">
+                                <i class="fa fa-info"></i>Details</a>
+                        </div>
+                        <div class="center">
+                            <a th:href="@{/project/project-personnel/delete/{id}/{projectId}(id=${list.id}, projectId=${projectId})}"
+                               class="btn btn-danger btn-sm delBtn">
+                                <i class="fa fa-trash"></i>Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-md-end mt-3 card-footer">
+            <a th:if="${currentStep != 'DESCRIPTION'}"
+               th:href="@{/project/step/{step}/{id}(step=${currentStep.previous()}, id=${project.id})}"
+               class="btn btn-secondary" style="margin-right: 10px;">← Back</a>
+
+            <a th:if="${currentStep != 'SUBMIT'}"
+               th:href="@{/project/step/{step}/{id}(step=${currentStep.next()}, id=${project.id})}"
+               class="btn btn-primary ms-auto">Next →</a>
+        </div>
+    </div>
+</section>
+<section layout:fragment="modals">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the record?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="" class="btn btn-primary" id="delRef">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

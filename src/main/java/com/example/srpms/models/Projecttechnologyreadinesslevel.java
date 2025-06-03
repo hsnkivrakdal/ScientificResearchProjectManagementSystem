@@ -27,8 +27,14 @@ public class Projecttechnologyreadinesslevel {
     @Column(name = "TargettedTecReadLevelJustification", nullable = false, length = 300)
     private String targettedTecReadLevelJustification;
 
-    @Column(name = "TechReadLevelFile")
-    private byte[] techReadLevelFile;
+    @Column(name = "TechReadLevelFilePath", nullable = false, length = 150)
+    private String techReadLevelFile;
+
+    @Column(name = "FileName", nullable = false, length = 100)
+    private String fileName;
+
+    @Column(name = "FileType", nullable = false, length = 80)
+    private String fileType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ExistingTechnologyLevel")

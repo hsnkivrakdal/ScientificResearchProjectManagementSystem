@@ -18,11 +18,17 @@ public class Projectadditionalfile {
     @Column(name = "FileId", nullable = false)
     private Integer id;
 
-    @Column(name = "FileDescriptionId", nullable = false, length = 100)
+    @Column(name = "FileDescription", nullable = false, length = 100)
     private String fileDescriptionId;
 
-    @Column(name = "FileDocument")
-    private byte[] fileDocument;
+    @Column(name = "FileName", nullable = false, length = 100)
+    private String fileName;
+
+    @Column(name = "FileType", nullable = false, length = 45)
+    private String fileType;
+
+    @Column(name = "FilePath", nullable = false, length = 150)
+    private String filePath;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProjectId")

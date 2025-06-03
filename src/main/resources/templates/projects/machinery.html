@@ -69,7 +69,7 @@
                     <td style="text-align: center;" th:text="${list.toString()}"></td>
                     <td>
                         <div class="center">
-                            <a th:href="@{'/keyword-types/delete/' + ${list.id}}"
+                            <a th:href="@{/project/project-machinery/delete/{id}/{projectId}(id=${list.id}, projectId=${projectId})}"
                                class="btn btn-danger btn-sm delBtn">
                                 <i class="fa fa-trash"></i> Delete
                             </a>
@@ -87,6 +87,27 @@
             <a th:if="${currentStep != 'SUBMIT'}"
                th:href="@{/project/step/{step}/{id}(step=${currentStep.next()}, id=${project.id})}"
                class="btn btn-primary ms-auto">Next →</a>
+        </div>
+    </div>
+</section>
+<section layout:fragment="modals">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the record?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="" class="btn btn-primary" id="delRef">Confirm</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
