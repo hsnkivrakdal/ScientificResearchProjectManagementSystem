@@ -26,4 +26,8 @@ public class Userinrole {
     @JoinColumn(name = "RoleId")
     private Role role;
 
+    @Override
+    public String toString() {
+        return role.toString();
+    }
 }

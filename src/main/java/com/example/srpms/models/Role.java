@@ -27,4 +27,8 @@ public class Role {
     @OneToMany(mappedBy = "role")
     private Set<Userinrole> userinroles = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

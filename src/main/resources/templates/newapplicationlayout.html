@@ -29,7 +29,7 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
+                        <a th:classappend="${activeStep == 'project-information'} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
                            th:href="@{/project/step/PROJECT_INFORMATION/{projectId}(projectId=${project.id})}">
@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
+                        <a th:classappend="${activeStep == 'activity-areas'} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
                            th:href="@{/project/step/ACTIVITY_AREAS/{projectId}(projectId=${project.id})}">
@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
+                        <a th:classappend="${activeStep == 'keywords'} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
                            th:href="@{/project/step/KEYWORDS/{projectId}(projectId=${project.id})}">
@@ -53,7 +53,7 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
+                        <a th:classappend="${activeStep == 'tech-level'} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
                            th:href="@{/project/step/TECHNOLOGY_LEVEL/{projectId}(projectId=${project.id})}">
@@ -61,7 +61,7 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
+                        <a th:classappend="${activeStep == 'personnel'} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
                            th:href="@{/project/step/PERSONNEL/{projectId}(projectId=${project.id})}">
@@ -69,7 +69,7 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
+                        <a th:classappend="${activeStep == 'files'} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
                            th:href="@{/project/step/FILES/{projectId}(projectId=${project.id})}">
@@ -77,7 +77,7 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
+                        <a th:classappend="${activeStep == 'machinery'} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
                            th:href="@{/project/step/MACHINERY/{projectId}(projectId=${project.id})}">
@@ -85,10 +85,10 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a th:classappend="${activeStep == ''} ? 'text-primary fw-bold'"
+                        <a th:classappend="${activeStep == 'submit'} ? 'text-primary fw-bold'"
                            class="d-block"
                            style="font-size: 14px; padding: 5px 0;"
-                           th:href="@{/}">
+                           th:href="@{/project/step/SUBMIT/{projectId}(projectId=${project.id})}">
                             <i class="fa fa-angle-right"></i>Submit & Approve
                         </a>
                     </li>

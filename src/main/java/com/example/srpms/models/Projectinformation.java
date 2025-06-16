@@ -9,6 +9,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +29,7 @@ public class Projectinformation {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "ProjectApplicationDate")
-    private Instant projectApplicationDate;
+    private Date projectApplicationDate;
 
     @Column(name = "ProjectSummary", nullable = false, length = 600)
     private String projectSummary;

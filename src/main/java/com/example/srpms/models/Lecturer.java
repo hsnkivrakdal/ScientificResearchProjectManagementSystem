@@ -51,6 +51,10 @@ public class Lecturer {
     @JoinColumn(name = "LecturerAffiliationId")
     private Lectureraffiliation lecturerAffiliation;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UserId")
+    private User user;
+
     @OneToMany(mappedBy = "lecturer")
     private Set<Projectcoordinatorinformation> projectcoordinatorinformations = new LinkedHashSet<>();
 

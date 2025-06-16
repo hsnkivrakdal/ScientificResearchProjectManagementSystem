@@ -10,7 +10,7 @@
 <section layout:fragment="applicationContent">
   <div class="card">
     <div class="card-header">
-      <strong>Coordinator Information</strong>
+      <strong>Additional Files - Add</strong>
     </div>
     <div class="card-body card-block">
       <form th:action="@{/project/step/FILES/{projectId}(projectId=${projectId})}" th:object="${projectAdditionalFile}" method="post" class="form-horizontal" enctype="multipart/form-data">
@@ -20,22 +20,22 @@
 
         <div class="row form-group">
           <div class="col col-md-3">
-            <label for="identityNumber" class="form-control-label">Document Description</label>
+            <label for="docdesc" class="form-control-label">Document Description</label>
           </div>
           <div class="col-12 col-md-9">
-            <input type="text" id="identityNumber" name="fileDescriptionId" placeholder="Enter the description" class="form-control" required>
+            <input type="text" id="docdesc"  name="fileDescriptionId" th:disabled="${project.isSubmitted}" placeholder="Enter the description" class="form-control" required>
             <small class="form-text text-muted">Enter a descriptive name for the record.</small>
           </div>
           <div class="col col-md-3">
             <label for="fileDoc" class="form-control-label">File</label>
           </div>
           <div class="col-12 col-md-9">
-            <input type="file" id="fileDoc" class="form-control" name="fileDocument" required>
+            <input type="file" id="fileDoc" class="form-control" th:disabled="${project.isSubmitted}" name="fileDocument" required>
             <small class="form-text text-muted">Enter a descriptive name for the record.</small>
           </div>
         </div>
         <div class="card-footer">
-          <button type="submit" class="btn btn-success btn-sm">
+          <button type="submit" class="btn btn-success btn-sm" th:if="${!project.isSubmitted}">
             <i class="fa fa-dot-circle-o"></i> Submit
           </button>
         </div>
@@ -66,12 +66,8 @@
           </td>
           <td style="display: flex; width:0px; text-align: center;">
             <div class="center">
-              <a th:href="@{'/keyword-types/delete/' + ${list.id}}"
-                 class="btn btn-info btn-sm" style="margin-right: 2px;">
-                <i class="fa fa-info"></i>Details</a>
-            </div>
-            <div class="center">
-              <a th:href="@{/project/project-personnel/delete/{id}/{projectId}(id=${list.id}, projectId=${projectId})}"
+              <a th:href="@{/project/project-additional-file/delete/{id}/{projectId}(id=${list.id}, projectId=${projectId})}"
+                 th:if="${!project.isSubmitted}"
                  class="btn btn-danger btn-sm delBtn">
                 <i class="fa fa-trash"></i>Delete</a>
             </div>

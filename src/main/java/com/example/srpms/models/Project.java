@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -28,13 +30,23 @@ public class Project {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "ProjectApplicationDate")
-    private Instant projectApplicationDate;
+    private Date projectApplicationDate;
 
     @Column(name = "ProjectCode", nullable = true, length = 50)
     private String projectCode;
 
     @Column(name = "IsApproved")
     private Boolean isApproved;
+
+    @Column(name = "IsEvaluated")
+    private Boolean isEvaluated;
+
+    @Column(name = "IsSubmitted")
+    private Boolean isSubmitted;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UserId")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProjectApplicationId")

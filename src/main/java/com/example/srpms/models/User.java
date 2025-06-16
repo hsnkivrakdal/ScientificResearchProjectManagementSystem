@@ -39,4 +39,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Userinrole> userinroles = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Project> projects = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Lecturer> lecturers = new LinkedHashSet<>();
+
 }

@@ -13,7 +13,7 @@
           <strong>Coordinator Information</strong>
         </div>
         <div class="card-body card-block">
-          <form th:action="@{/step/COORDINATOR/{projectId}(projectId=${projectId})}" th:object="${projectCoordinatorInf}" method="post" class="form-horizontal">
+          <form th:action="@{/project/step/COORDINATOR/{projectId}(projectId=${projectId})}" th:object="${projectCoordinatorInf}" method="post" class="form-horizontal">
 
             <input type="hidden" th:field="*{id}" />
             <input type="hidden" th:field="*{project.id}">
@@ -24,56 +24,61 @@
                 <label for="firstName" class="form-control-label">First Name</label>
               </div>
               <div class="col-12 col-md-9">
-                <input type="text" id="firstName" th:field="*{firstName}" placeholder="Enter First Name" class="form-control" required>
+                <input type="text" id="firstName" th:field="*{firstName}" th:readonly="${project.isSubmitted}" placeholder="Enter First Name" class="form-control" required>
                 <small class="form-text text-muted">Enter a descriptive name for the record.</small>
               </div>
               <div class="col col-md-3">
                 <label for="lastName" class="form-control-label">Last Name</label>
               </div>
               <div class="col-12 col-md-9">
-                <input type="text" id="lastName" th:field="*{lastName}" placeholder="Enter Last Name" class="form-control" required>
+                <input type="text" id="lastName" th:field="*{lastName}" th:readonly="${project.isSubmitted}" placeholder="Enter Last Name" class="form-control" required>
                 <small class="form-text text-muted">Enter a descriptive name for the record.</small>
               </div>
               <div class="col col-md-3">
                 <label for="mail" class="form-control-label">E-mail</label>
               </div>
               <div class="col-12 col-md-9">
-                <input type="text" id="mail" th:field="*{mailAddress}" placeholder="Enter E-mail" class="form-control" required>
+                <input type="text" id="mail" th:field="*{mailAddress}" th:readonly="${project.isSubmitted}" placeholder="Enter E-mail" class="form-control" required>
                 <small class="form-text text-muted">Enter a descriptive name for the record.</small>
               </div>
               <div class="col col-md-3">
                 <label for="phone" class="form-control-label">Phone Number</label>
               </div>
               <div class="col-12 col-md-9">
-                <input type="text" id="phone" th:field="*{phoneNumber}" placeholder="Enter Phone Number" class="form-control" required>
+                <input type="text" id="phone" th:field="*{phoneNumber}" placeholder="Enter Phone Number" th:readonly="${project.isSubmitted}" class="form-control" required>
                 <small class="form-text text-muted">Enter a descriptive name for the record.</small>
               </div>
               <div class="col col-md-3">
                 <label for="doctorate" class="form-control-label">Doctorate Degree</label>
               </div>
               <div class="col col-md-9">
-                <input type="text" id="doctorate" th:field="*{doctorateDegree}" placeholder="Enter Doctorate Degree" class="form-control" required>
+                <input type="text" id="doctorate" th:field="*{doctorateDegree}" placeholder="Enter Doctorate Degree" th:readonly="${project.isSubmitted}" class="form-control" required>
                 <small class="form-text text-muted">Enter a descriptive name for the record.</small>
               </div>
               <div class="col col-md-3">
                 <label for="responsibility" class="form-control-label">Responsibility</label>
               </div>
               <div class="col col-md-9">
-                <input type="text" id="responsibility" th:field="*{coordinatorResponsibility}" placeholder="Enter Responsibility" class="form-control" required>
+                <input type="text" id="responsibility" th:field="*{coordinatorResponsibility}" placeholder="Enter Responsibility" th:readonly="${project.isSubmitted}" class="form-control" required>
                 <small class="form-text text-muted">Enter a descriptive name for the record.</small>
               </div>
               <div class="col col-md-3">
                 <label for="position" class="form-control-label">Position</label>
               </div>
               <div class="col col-md-9">
-                <select th:field="*{coordinatorPosition}" class="form-control" id="position" required>
+                <select th:field="*{coordinatorPosition}" class="form-control" id="position" th:disabled="${project.isSubmitted}" required>
                   <option th:each="position : ${positions}"
-                          th:value="${position}"
+                          th:value="${position.id}"
                           th:text="${position.coordinatorPositionTitle}">
                   </option>
                 </select>
                 <small class="form-text text-muted">Enter a descriptive name for the record.</small>
               </div>
+            </div>
+            <div class="card-footer" th:if="${projectCoordinatorInf.id == null && !project.isSubmitted}" >
+              <button type="submit" class="btn btn-success btn-sm">
+                <i class="fa fa-dot-circle-o"></i> Submit
+              </button>
             </div>
           </form>
         </div>

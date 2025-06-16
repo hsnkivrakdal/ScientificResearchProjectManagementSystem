@@ -20,268 +20,20 @@
 </head>
 <body>
 <div class="page-wrapper">
-    <header class="header-mobile d-block d-lg-none">
-        <div class="header-mobile__bar">
-            <div class="container-fluid">
-                <div class="header-mobile-inner">
-                    <a class="logo" href="#">
-                        <img th:src="@{/images/icon/logo.png}" alt="CoolAdmin">
-                    </a>
-                    <button class="hamburger hamburger--slider" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <nav class="navbar-mobile">
-            <div class="container-fluid">
-                <ul class="navbar-mobile__list list-unstyled">
-                    <li th:classappend="${activePage == 'home'} ? 'active'">
-                        <a class="js-arrow" th:href="@{/home/index}">
-                            <i class="fas fa-tachometer-alt"></i>Home
-                        </a>
-                      <!--  <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                            <li>
-                                <a href="index.html">Dashboard 1</a>
-                            </li>
-                            <li>
-                                <a href="index2.html">Dashboard 2</a>
-                            </li>
-                            <li>
-                                <a href="index3.html">Dashboard 3</a>
-                            </li>
-                            <li>
-                                <a href="index4.html">Dashboard 4</a>
-                            </li>
-                        </ul> -->
-                    </li>
-                    <li>
-                        <a href="chart.html">
-                            <i class="fas fa-chart-bar"></i>Charts
-                        </a>
-                    </li>
-                    <li>
-                        <a href="table.html">
-                            <i class="fas fa-table"></i>Tables
-                        </a>
-                    </li>
-                    <li>
-                        <a href="form.html">
-                            <i class="far fa-check-square"></i>Forms
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-calendar-alt"></i>Calendar
-                        </a>
-                    </li>
-                    <li>
-                        <a href="map.html">
-                            <i class="fas fa-map-marker-alt"></i>Maps
-                        </a>
-                    </li>
-                    <li class="has-sub">
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-copy"></i>Pages
-                        </a>
-                      <!--  <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                            <li>
-                                <a href="login.html">Login</a>
-                            </li>
-                            <li>
-                                <a href="register.html">Register</a>
-                            </li>
-                            <li>
-                                <a href="forget-pass.html">Forget Password</a>
-                            </li>
-                        </ul> -->
-                    </li>
-                    <li class="has-sub">
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-desktop"></i>UI Elements
-                        </a>
-                      <!--  <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                            <li>
-                                <a href="button.html">Button</a>
-                            </li>
-                            <li>
-                                <a href="badge.html">Badges</a>
-                            </li>
-                            <li>
-                                <a href="tab.html">Tabs</a>
-                            </li>
-                            <li>
-                                <a href="card.html">Cards</a>
-                            </li>
-                            <li>
-                                <a href="alert.html">Alerts</a>
-                            </li>
-                            <li>
-                                <a href="progress-bar.html">Progress Bars</a>
-                            </li>
-                            <li>
-                                <a href="modal.html">Modals</a>
-                            </li>
-                            <li>
-                                <a href="switch.html">Switchs</a>
-                            </li>
-                            <li>
-                                <a href="grid.html">Grids</a>
-                            </li>
-                            <li>
-                                <a href="fontawesome.html">Fontawesome Icon</a>
-                            </li>
-                            <li>
-                                <a href="typo.html">Typography</a>
-                            </li>
-                        </ul> -->
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
-            <a href="#">
-                <img th:src="@{/images/icon/logo.png}" alt="Cool Admin">
+            <a th:href="@{/home/index}">
+                <img th:src="@{/images/icon/iu_logo-mavi.png}" alt="Cool Admin">
             </a>
         </div>
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li th:classappend="${activePage == 'home'} ? 'active'">
-                        <a th:href="@{/home/index}">
-                                <i class="fas fa-tachometer-alt"></i>Home
-                        </a>
-                        <!--  th:classappend="${activePage == 'tables' or activePage == 'forms'} ? 'active'" aktif olan sublar için-->
-                        <!--<ul class="list-unstyled navbar__sub-list js-sub-list">
-                            <li>
-                                <a href="index.html">Dashboard 1</a>
-                            </li>
-                            <li>
-                                <a href="index2.html">Dashboard 2</a>
-                            </li>
-                            <li>
-                                <a href="index3.html">Dashboard 3</a>
-                            </li>
-                            <li>
-                                <a href="index4.html">Dashboard 4</a>
-                            </li>
-                        </ul>-->
-                    </li>
-                    <li th:classappend="${activePage == 'keyword-types'} ? 'active'">
-                        <a th:href="@{/keyword-types/list}">
-                            <i class="fas fa-chart-bar"></i>Keyword Types
-                        </a>
-                    </li>
-                    <li th:classappend="${activePage == 'activity-area-types'} ? 'active'">
-                        <a th:href="@{/activity-area-types/list}">
-                            <i class="fas fa-table"></i>Activity Area Type
-                        </a>
-                    </li>
-                    <li th:classappend="${activePage == 'lecturer-affiliation'} ? 'active'">
-                        <a th:href="@{/lecturer-affiliation/list}">
-                            <i class="far fa-check-square"></i>Lecturer Affiliation
-                        </a>
-                    </li>
-                    <li th:classappend="${activePage == 'lecturer-title'} ? 'active'">
-                        <a th:href="@{/lecturer-title/list}">
-                            <i class="fas fa-calendar-alt"></i>Lecturer Title
-                        </a>
-                    </li>
-                    <li th:classappend="${activePage == 'lecturer-type'} ? 'active'">
-                        <a th:href="@{/lecturer-type/list}">
-                            <i class="fas fa-map-marker-alt"></i>LecturerType
-                        </a>
-                    </li>
-                    <li  th:classappend="${activePage == 'machinery-type'} ? 'active'">  <!--class="has-sub"-->
-                        <a th:href="@{/machinery-type/list}"> <!--class="js-arrow"-->
-                            <i class="fas fa-copy"></i>Machinery Types
-                        </a>
-                        <!--<ul class="list-unstyled navbar__sub-list js-sub-list">
-                            <li>
-                                <a href="login.html">Login</a>
-                            </li>
-                            <li>
-                                <a href="register.html">Register</a>
-                            </li>
-                            <li>
-                                <a href="forget-pass.html">Forget Password</a>
-                            </li>
-                        </ul>-->
-                    </li>
-                    <li th:classappend="${activePage == 'personnel-type'} ? 'active'">
-                        <a th:href="@{/personnel-type/list}">
-                            <i class="fas fa-desktop"></i>Personnel Type
-                        </a>
-                        <!--
-                        <ul class="list-unstyled navbar__sub-list js-sub-list">
-                            <li>
-                                <a href="button.html">Button</a>
-                            </li>
-                            <li>
-                                <a href="badge.html">Badges</a>
-                            </li>
-                            <li>
-                                <a href="tab.html">Tabs</a>
-                            </li>
-                            <li>
-                                <a href="card.html">Cards</a>
-                            </li>
-                            <li>
-                                <a href="alert.html">Alerts</a>
-                            </li>
-                            <li>
-                                <a href="progress-bar.html">Progress Bars</a>
-                            </li>
-                            <li>
-                                <a href="modal.html">Modals</a>
-                            </li>
-                            <li>
-                                <a href="switch.html">Switchs</a>
-                            </li>
-                            <li>
-                                <a href="grid.html">Grids</a>
-                            </li>
-                            <li>
-                                <a href="fontawesome.html">Fontawesome Icon</a>
-                            </li>
-                            <li>
-                                <a href="typo.html">Typography</a>
-                            </li>
-                        </ul>-->
-                    </li>
-                    <li th:classappend="${activePage == 'project-report-type'} ? 'active'">
-                        <a th:href="@{/project-report-type/list}">
-                            <i class="fas fa-desktop"></i>Project Report Type
-                        </a>
-                    </li>
-                    <li th:classappend="${activePage == 'project-type'} ? 'active'">
-                        <a th:href="@{/project-type/list}">
-                            <i class="fas fa-desktop"></i>Project Type
-                        </a>
-                    </li>
-                    <li th:classappend="${activePage == 'technology-readiness-level-type'} ? 'active'">
-                        <a th:href="@{/technology-readiness-level-type/list}">
-                            <i class="fas fa-desktop"></i>Technology Readiness Level Type
-                        </a>
-                    </li>
-                    <li th:classappend="${activePage == 'project-application'} ? 'active'">
-                        <a th:href="@{/project-application/list}">
-                            <i class="fas fa-desktop"></i>Project Applications
-                        </a>
-                    </li>
-                    <li th:classappend="${activeStep == 'project'} ? 'active'">
-                        <a th:href="@{/project/list}">
-                            <i class="fas fa-desktop"></i>New Project
-                        </a>
-                    </li>
-                    <li th:classappend="${activeStep == 'projectContinue'} ? 'active'">
-                        <a th:href="@{/project/index}">
-                            <i class="fas fa-desktop"></i>Continue Project Form
+                    <li th:each="item : ${sidebarMenu}"
+                        th:classappend="${item.isActive(activePage)} ? 'active'">
+                        <a th:href="@{${item.url}}">
+                            <i th:class="${item.icon}"></i>
+                            <span th:text="${item.title}">Menu Item</span>
                         </a>
                     </li>
                 </ul>
@@ -296,44 +48,26 @@
                     <div class="header-wrap">
                         <div class="account-wrap">
                             <div class="account-item clearfix js-item-menu">
-                                    <div class="image">
-                                        <img th:src="@{/images/icon/userPhoto.png}" alt="John Doe">
-                                    </div>
-                                    <div class="content">
-                                        <a class="js-acc-btn" href="#">john doe</a>
-                                    </div>
-                                    <div class="account-dropdown js-dropdown">
-                                        <div class="info clearfix">
-                                            <div class="image">
-                                                <a href="#">
-                                                    <img th:src="@{/images/icon/userPhoto.png}" alt="John Doe">
-                                                </a>
-                                            </div>
-                                            <div class="content">
-                                                <h5 class="name">
-                                                    <a href="#">john doe</a>
-                                                </h5>
-                                                <span class="email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a707572747e757f5a7f627b776a767f34797577">[email&#160;protected]</a></span>
-                                            </div>
+                                <div class="image">
+                                    <img th:src="@{/images/icon/userPhoto.png}" alt="User">
+                                </div>
+                                <div class="content">
+                                    <a class="js-acc-btn" href="#"><span th:text="${session.user.getUserFirstName()}"></span> </a>
+                                </div>
+                                <div class="account-dropdown js-dropdown">
+                                    <div class="info clearfix">
+                                        <div class="image">
+                                            <a href="#"><img th:src="@{/images/icon/userPhoto.png}" alt="User"></a>
                                         </div>
-                                        <div class="account-dropdown__body">
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-account"></i>Account
-                                                </a>
-                                            </div>
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-settings"></i>Setting
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="account-dropdown__footer">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-power"></i>Logout
-                                            </a>
+                                        <div class="content">
+                                            <h5 class="name"><a href="#"><span th:text="${session.user.getUserFirstName() + ' ' + session.user.getUserLastName()}"></span></a></h5>
+                                            <span class="email" th:text="${session.user.getUserEmail()}"></span>
                                         </div>
                                     </div>
+                                    <div class="account-dropdown__footer">
+                                        <a th:href="@{/authentication/logout}"><i class="zmdi zmdi-power"></i>Logout</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -344,15 +78,11 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-                    <section layout:fragment="content">
-
-                    </section>
+                    <section layout:fragment="content"></section>
                 </div>
             </div>
         </div>
-        <section layout:fragment="modals">
-
-        </section>
+        <section layout:fragment="modals"></section>
     </div>
 </div>
 <script data-cfasync="false" th:src="@{/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js}"></script>

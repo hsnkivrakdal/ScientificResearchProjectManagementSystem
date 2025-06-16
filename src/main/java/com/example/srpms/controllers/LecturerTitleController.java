@@ -17,7 +17,7 @@ public class LecturerTitleController {
     private LecturerTitleService lecturerTitleService;
 
     public Model activePage(Model model) {
-        return model.addAttribute("activePage","lecturer-type");
+        return model.addAttribute("activePage","lecturer-title");
     }
 
     @GetMapping("/list")

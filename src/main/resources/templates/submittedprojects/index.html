@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Submitted Project-List</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+<section layout:fragment="content">
+  <p><strong>Submitted Project-List</strong></p>
+  <div class="row m-t-30">
+    <div class="col-md-12">
+      <div class="table-responsive m-b-40">
+        <table class="table table-borderless table-data3">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Code</th>
+            <th>Approved</th>
+            <th>Application Id</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="prj : ${project}" th:if="${(prj.isSubmitted && !prj.isApproved && !prj.isEvaluated) and (session.role == 'admin' or session.role =='committee' or (prj.user != null and prj.user.id == session.user.id))}">
+            <td th:text="${prj.id}"></td>
+            <td th:text="${prj.projectTitle}"></td>
+            <td th:text="${prj.projectApplicationDate}"></td>
+            <td th:text="${prj.projectCode}"></td>
+            <td>
+              <span th:if="${prj.isApproved}" class="badge badge-success">Yes</span>
+              <span th:if="${!prj.isApproved}" class="badge badge-warning">Evaluating</span>
+            </td>
+            <td th:text="${prj.projectApplication}"></td>
+            <td>
+              <div class="">
+                <a th:href="@{'/project-continue/continue/' + ${prj.id}}" class="btn btn-info btn-sm" style="margin-right: 2px;">
+                  <i class="fa fa-edit"></i> See Details
+                </a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <p><strong>Rejected Project-List</strong></p>
+  <div class="row m-t-30">
+    <div class="col-md-12">
+      <div class="table-responsive m-b-40">
+        <table class="table table-borderless table-data3">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Code</th>
+            <th>Approved</th>
+            <th>Application Id</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="prj : ${project}" th:if="${(prj.isSubmitted && !prj.isApproved && prj.isEvaluated) and (session.role == 'admin' or session.role =='committee' or (prj.user != null and prj.user.id == session.user.id))}">
+            <td th:text="${prj.id}"></td>
+            <td th:text="${prj.projectTitle}"></td>
+            <td th:text="${prj.projectApplicationDate}"></td>
+            <td th:text="${prj.projectCode}"></td>
+            <td>
+              <span th:if="${prj.isApproved}" class="badge badge-success">Yes</span>
+              <span th:if="${!prj.isApproved}" class="badge badge-danger">Rejected</span>
+            </td>
+            <td th:text="${prj.projectApplication}"></td>
+            <td>
+              <div class="">
+                <a th:href="@{'/project-continue/continue/' + ${prj.id}}" class="btn btn-info btn-sm" style="margin-right: 2px;">
+                  <i class="fa fa-edit"></i> See Details
+                </a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

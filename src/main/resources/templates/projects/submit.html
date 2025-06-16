@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{newapplicationlayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit & Approve</title>
+</head>
+<body>
+<section layout:fragment="applicationContent">
+    <div class="card">
+        <div class="card-header bg-primary text-white fw-bold">
+            Project Final Step
+        </div>
+        <div class="card-body text-center">
+            <div th:if="${!project.isSubmitted}">
+                <form th:action="@{/project/step/SUBMIT/{projectId}(projectId=${projectId})}" method="post">
+                    <p class="mb-4">Are you sure you want to submit this project for approval?</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button type="submit" class="btn btn-primary me-2" style="margin-right: 3px;">
+                            <i class="fa fa-check"></i> Save & Submit
+                        </button>
+                        <a th:href="@{/project/step/DESCRIPTION/{projectId}(projectId=${projectId})}" class="btn btn-secondary">
+                            <i class="fa fa-times"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+            <div th:if="${project.isSubmitted && !project.isEvaluated && !project.isApproved && session.role=='committee'}">
+                <p class="mb-4 fw-bold">This project has been submitted. Would you like to approve it?</p>
+                <form th:action="@{/project-continue/approve/{projectId}(projectId=${projectId})}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-success" style="margin-right: 3px;">
+                        <i class="fa fa-thumbs-up"></i> Approve Project
+                    </button>
+                </form>
+                <form th:action="@{/project-continue/approve-not/{projectId}(projectId=${projectId})}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-thumbs-down"></i> Reject The Project
+                    </button>
+                </form>
+            </div>
+            <div th:if="${project.isApproved}">
+                <form th:action="@{/project-continue/approve/{projectId}(projectId=${projectId})}" method="post">
+                    <p class="mb-4 fw-bold">This project has been approved!</p>
+                </form>
+            </div>
+            <div th:if="${project.isSubmitted && project.isEvaluated && !project.isApproved}">
+                <form th:action="@{/project-continue/approve/{projectId}(projectId=${projectId})}" method="post">
+                    <p class="mb-4 fw-bold">This project has not been approved!</p>
+                </form>
+            </div>
+            <div th:if="${project.isSubmitted && !project.isEvaluated && !project.isApproved && session.role=='lecturer'}">
+                <form th:action="@{/project-continue/approve/{projectId}(projectId=${projectId})}" method="post">
+                    <p class="mb-4 fw-bold">This project has not been evaluated!</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

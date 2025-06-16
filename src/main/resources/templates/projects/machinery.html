@@ -23,7 +23,7 @@
                         <label for="machineryType" class="form-control-label">Machinery Type Title</label>
                     </div>
                     <div class="col col-md-9">
-                        <select th:field="*{machineryType}" class="form-control" id="machineryType" required>
+                        <select th:field="*{machineryType}" th:disabled="${project.isSubmitted}" class="form-control" id="machineryType" required>
                             <option th:each="mt : ${getMachineryTypes}"
                                     th:value="${mt.id}"
                                     th:text="${mt.machineryTitle}">
@@ -37,12 +37,12 @@
                         <label for="machineryTitle" class="form-control-label">Machinery Title</label>
                     </div>
                     <div class="col-12 col-md-9">
-                        <input class="form-control" type="text" th:field="*{machineryTitle}" placeholder="Enter specific title..." id="machineryTitle">
+                        <input class="form-control" type="text" th:field="*{machineryTitle}" th:disabled="${project.isSubmitted}" placeholder="Enter specific title..." id="machineryTitle">
                         <small class="form-text text-muted">Enter a descriptive name for the record.</small>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-success btn-sm">
+                    <button type="submit" class="btn btn-success btn-sm" th:if="${!project.isSubmitted}">
                         <i class="fa fa-dot-circle-o"></i> Submit
                     </button>
                 </div>
@@ -70,6 +70,7 @@
                     <td>
                         <div class="center">
                             <a th:href="@{/project/project-machinery/delete/{id}/{projectId}(id=${list.id}, projectId=${projectId})}"
+                               th:if="${!project.isSubmitted}"
                                class="btn btn-danger btn-sm delBtn">
                                 <i class="fa fa-trash"></i> Delete
                             </a>

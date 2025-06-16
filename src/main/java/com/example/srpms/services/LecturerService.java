@@ -9,4 +9,9 @@ public class LecturerService extends BusinessServiceImplementation<Lecturer, Int
     protected LecturerService(LecturerRepository repository) {
         super(repository);
     }
+
+    public Lecturer findByMailAddress(String mailAddress) {
+        Lecturer lecturer = repository.findAll().stream().filter(x -> x.getMailAddress().equals(mailAddress)).findFirst().orElse(null);
+        return lecturer;
+    }
 }

@@ -16,8 +16,6 @@
           <thead>
           <tr>
             <th>Id</th>
-            <th>Title</th>
-            <th>Date</th>
             <th>Code</th>
             <th>Approved</th>
             <th>Application Id</th>
@@ -25,19 +23,17 @@
           </tr>
           </thead>
           <tbody>
-          <tr th:each="prj : ${project}">
+          <tr th:each="prj : ${project}" th:if="${(!prj.isSubmitted and session.role == 'admin') or (prj.user != null and prj.user.id == session.user.id and !prj.isSubmitted)}">
             <td th:text="${prj.id}"></td>
-            <td th:text="${prj.projectTitle}"></td>
-            <td th:text="${prj.projectApplicationDate}"></td>
             <td th:text="${prj.projectCode}"></td>
             <td th:text="${prj.isApproved}"></td>
             <td th:text="${prj.projectApplication}"></td>
             <td>
               <div class="">
-                <a th:href="@{'/project/continue/' + ${prj.id}}" class="btn btn-info btn-sm" style="margin-right: 2px;">
+                <a th:href="@{'/project-continue/continue/' + ${prj.id}}" class="btn btn-info btn-sm" style="margin-right: 2px;">
                   <i class="fa fa-edit"></i> Continue Application
                 </a>
-                <a th:href="@{'/project-application/delete/' + ${prj.id}}"
+                <a th:href="@{'/project-continue/delete/' + ${prj.id}}"
                    class="btn btn-danger btn-sm delBtn">
                   <i class="fa fa-trash"></i> Delete
                 </a>
@@ -46,11 +42,6 @@
           </tr>
           </tbody>
         </table>
-        <div class="card-footer">
-          <a th:href="@{/project-application/create}" methods="get" class="btn btn-warning btn-sm" style="color: white;">
-            <i class="fa fa-plus"></i> Create New
-          </a>
-        </div>
       </div>
     </div>
   </div>

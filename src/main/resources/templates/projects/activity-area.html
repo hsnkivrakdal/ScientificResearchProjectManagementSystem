@@ -23,7 +23,7 @@
                             <label for="activityAreaType" class="form-control-label">Activity Area Type Title</label>
                         </div>
                         <div class="col col-md-9">
-                            <select th:field="*{activityAreaType}" class="form-control" id="activityAreaType" required>
+                            <select th:field="*{activityAreaType}" th:disabled="${project.isSubmitted}" class="form-control" id="activityAreaType" required>
                                 <option th:each="activityareatype : ${getActivityAreaTypes}"
                                         th:value="${activityareatype.id}"
                                         th:text="${activityareatype.activityAreaTypeTitle}">
@@ -32,7 +32,7 @@
                             <small class="form-text text-muted">Enter a descriptive name for the record.</small>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer" th:if="${!project.isSubmitted}">
                         <button type="submit" class="btn btn-success btn-sm">
                             <i class="fa fa-dot-circle-o"></i> Submit
                         </button>
@@ -62,6 +62,7 @@
                             <td>
                                 <div class="center">
                                     <a th:href="@{/project/project-activity-areas/delete/{id}/{projectId}(id=${list.id}, projectId=${projectId})}"
+                                       th:if="${!project.isSubmitted}"
                                        class="btn btn-danger btn-sm delBtn">
                                         <i class="fa fa-trash"></i> Delete
                                     </a>

@@ -30,8 +30,8 @@ public class Projectcoordinatorinformation {
     @Column(name = "PhoneNumber", nullable = false, length = 13)
     private String phoneNumber;
 
-    @Column(name = "DoctorateDegree", nullable = false)
-    private Integer doctorateDegree;
+    @Column(name = "DoctorateDegree", nullable = false, length = 100)
+    private String doctorateDegree;
 
     @Column(name = "CoordinatorResponsibility", nullable = false, length = 250)
     private String coordinatorResponsibility;

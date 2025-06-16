@@ -10,7 +10,7 @@
 <section layout:fragment="applicationContent">
     <div class="card">
         <div class="card-header">
-            <strong>Coordinator Information</strong>
+            <strong>Project Personnel - Add</strong>
         </div>
         <div class="card-body card-block">
             <form th:action="@{/project/step/PERSONNEL/{projectId}(projectId=${projectId})}" th:object="${projectPersonnel}" method="post" class="form-horizontal">
@@ -23,49 +23,49 @@
                         <label for="identityNumber" class="form-control-label">Identity Number</label>
                     </div>
                     <div class="col-12 col-md-9">
-                        <input type="text" id="identityNumber" th:field="*{identityNumber}" placeholder="Enter Identity Number" class="form-control" required>
+                        <input type="text" id="identityNumber" th:field="*{identityNumber}" th:disabled="${project.isSubmitted}" placeholder="Enter Identity Number" class="form-control" required>
                         <small class="form-text text-muted">Enter a descriptive name for the record.</small>
                     </div>
                     <div class="col col-md-3">
                         <label for="firstName" class="form-control-label">First Name</label>
                     </div>
                     <div class="col-12 col-md-9">
-                        <input type="text" id="firstName" th:field="*{firstName}" placeholder="Enter First Name" class="form-control" required>
+                        <input type="text" id="firstName" th:field="*{firstName}" th:disabled="${project.isSubmitted}" placeholder="Enter First Name" class="form-control" required>
                         <small class="form-text text-muted">Enter a descriptive name for the record.</small>
                     </div>
                     <div class="col col-md-3">
                         <label for="lastName" class="form-control-label">Last Name</label>
                     </div>
                     <div class="col-12 col-md-9">
-                        <input type="text" id="lastName" th:field="*{lastName}" placeholder="Enter Last Name" class="form-control" required>
+                        <input type="text" id="lastName" th:field="*{lastName}" th:disabled="${project.isSubmitted}" placeholder="Enter Last Name" class="form-control" required>
                         <small class="form-text text-muted">Enter a descriptive name for the record.</small>
                     </div>
                     <div class="col col-md-3">
                         <label for="title" class="form-control-label">Title</label>
                     </div>
                     <div class="col-12 col-md-9">
-                        <input type="text" id="title" th:field="*{title}" placeholder="Enter Personnel Title" class="form-control" required>
+                        <input type="text" id="title" th:field="*{title}" th:disabled="${project.isSubmitted}" placeholder="Enter Personnel Title" class="form-control" required>
                         <small class="form-text text-muted">Enter a descriptive name for the record.</small>
                     </div>
                     <div class="col col-md-3">
                         <label for="affiliation" class="form-control-label">Affiliation</label>
                     </div>
                     <div class="col col-md-9">
-                        <input type="text" id="affiliation" th:field="*{affiliation}" placeholder="Enter Personnel Affiliation" class="form-control" required>
+                        <input type="text" id="affiliation" th:field="*{affiliation}" th:disabled="${project.isSubmitted}" placeholder="Enter Personnel Affiliation" class="form-control" required>
                         <small class="form-text text-muted">Enter a descriptive name for the record.</small>
                     </div>
                     <div class="col col-md-3">
                         <label for="responsibility" class="form-control-label">Responsibility</label>
                     </div>
                     <div class="col col-md-9">
-                        <textarea type="text" id="responsibility" th:field="*{responsibility}" placeholder="Enter Personnel Responsibility" class="form-control" style="height: 150px;" required></textarea>
+                        <textarea type="text" id="responsibility" th:field="*{responsibility}" th:disabled="${project.isSubmitted}" placeholder="Enter Personnel Responsibility" class="form-control" style="height: 150px;" required></textarea>
                         <small class="form-text text-muted">Enter a descriptive name for the record.</small>
                     </div>
                     <div class="col col-md-3">
                         <label for="position" class="form-control-label">Personnel Type</label>
                     </div>
                     <div class="col col-md-9">
-                        <select th:field="*{projectPersonnelType}" class="form-control" id="position" required>
+                        <select th:field="*{projectPersonnelType}" th:disabled="${project.isSubmitted}" class="form-control" id="position" required>
                             <option th:each="type : ${getPersonnelTypes}"
                                     th:value="${type.id}"
                                     th:text="${type.personnelTypeTitle}">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-success btn-sm">
+                    <button type="submit" class="btn btn-success btn-sm" th:if="${!project.isSubmitted}">
                         <i class="fa fa-dot-circle-o"></i> Submit
                     </button>
                 </div>
@@ -115,6 +115,7 @@
                         </div>
                         <div class="center">
                             <a th:href="@{/project/project-personnel/delete/{id}/{projectId}(id=${list.id}, projectId=${projectId})}"
+                               th:if="${!project.isSubmitted}"
                                class="btn btn-danger btn-sm delBtn">
                                 <i class="fa fa-trash"></i>Delete</a>
                         </div>

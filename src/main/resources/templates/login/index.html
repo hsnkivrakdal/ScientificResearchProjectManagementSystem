@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+    <title>Login</title>
+    <link th:href="@{/css/font-face.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/font-awesome-5/css/fontawesome-all.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/animsition/animsition.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/wow/animate.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/css-hamburgers/hamburgers.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/slick/slick.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/perfect-scrollbar/perfect-scrollbar.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/theme.css}" rel="stylesheet" media="all">
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="page-content--bge5">
+        <div class="container">
+            <div class="login-wrap">
+                <div class="login-content">
+                    <div class="login-logo">
+                        <a href="#">
+                            <img th:src="@{/images/icon/iu_logo-mavi.png}" alt="CoolAdmin">
+                        </a>
+                    </div>
+                    <div class="login-form">
+                        <form th:action="@{/authentication/login}" method="post">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input class="au-input au-input--full" type="email" name="email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input class="au-input au-input--full" type="password" name="password" placeholder="Password" required>
+                            </div>
+                            <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
+                            <p th:if="${error}" class="text-danger" th:text="${error}"></p>
+                        </form>
+
+                        <div class="register-link">
+                            <p>
+                                Don't you have account?
+                                <a href="#">Sign Up Here</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-cfasync="false" th:src="@{/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js}"></script>
+<script th:src="@{/vendor/jquery-3.2.1.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/bootstrap-4.1/popper.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/bootstrap-4.1/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/slick/slick.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/wow/wow.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/animsition/animsition.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/counter-up/jquery.waypoints.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/counter-up/jquery.counterup.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/circle-progress/circle-progress.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/perfect-scrollbar/perfect-scrollbar.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/chartjs/Chart.bundle.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/select2/select2.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/main.js}" type="text/javascript"></script>
+
+<script th:src="@{https://ajax.cloudflare.com/cdn-cgi/scripts/95c75768/cloudflare-static/rocket-loader.min.js}" data-cf-settings="aa8f0fd2778b891fb0dbfaa2-|49" defer=""></script>
+</body>
+</html>

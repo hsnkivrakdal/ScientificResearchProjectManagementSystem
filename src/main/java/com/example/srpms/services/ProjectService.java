@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.Year;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,37 +33,50 @@ public class ProjectService extends BusinessServiceImplementation<Project, Integ
         return projectApplicationService.getById(id);
     }
 
-    public Project createProjectWithApp(Projectapplication projectapplication) {
+    public Project createProjectWithApp(Projectapplication projectapplication,User user) {
         Project project = new Project();
         project.setProjectApplication(projectapplication);
         project.setIsApproved(false);
+        project.setUser(user);
+        project.setIsEvaluated(false);
+        project.setIsSubmitted(false);
         repository.save(project);
         project.setProjectCode(generateProjectCode(project.getId()));
         return repository.save(project);
     }
 
+    public void deleteProjectApplication(Integer projectId) {
+        repository.deleteById(projectId);
+    }
+
+    public List<Project> getSubmittedProjects() {
+        List<Project> project = repository.findAll().stream().filter(project1 -> Boolean.TRUE.equals(project1.getIsSubmitted())).collect(Collectors.toList());
+        return project;
+    }
+
+    public List<Project> getApprovedProjects() {
+        List<Project> project = repository.findAll().stream().filter(project1 -> Boolean.TRUE.equals(project1.getIsApproved())).collect(Collectors.toList());
+        return project;
+    }
+
     @Autowired
     public ProjectCoordinatorInformationService projectCoordinatorInformationService;
-
-    public void postProjectCoordinator(Projectcoordinatorinformation projectcoordinatorinformation) {
-        Projectcoordinatorinformation pci = new Projectcoordinatorinformation();
-        pci.setFirstName(projectcoordinatorinformation.getFirstName());
-        pci.setLastName(projectcoordinatorinformation.getLastName());
-        pci.setMailAddress(projectcoordinatorinformation.getMailAddress());
-        pci.setPhoneNumber(projectcoordinatorinformation.getPhoneNumber());
-        pci.setDoctorateDegree(projectcoordinatorinformation.getDoctorateDegree());
-        pci.setCoordinatorResponsibility(projectcoordinatorinformation.getCoordinatorResponsibility());
-        pci.setCoordinatorPosition(projectcoordinatorinformation.getCoordinatorPosition());
-        pci.setProject(projectcoordinatorinformation.getProject());
-        projectCoordinatorInformationService.add(pci);
-    }
 
     @Autowired
     public CoordinatorPositionService coordinatorPositionService;
 
+    public void postProjectCoordinator(Projectcoordinatorinformation projectcoordinatorinformation) {
+        projectCoordinatorInformationService.add(projectcoordinatorinformation);
+    }
+
     public List<Coordinatorposition> getCoordinatorPositions(){
         List<Coordinatorposition> coordinatorPositions = coordinatorPositionService.getAll();
         return coordinatorPositions;
+    }
+
+    public Projectcoordinatorinformation getProjectcoordinatorInformationByProjectId(Integer projectId) {
+        Projectcoordinatorinformation projectcoordinatorinformation = projectCoordinatorInformationService.getAll().stream().filter(projectcoordinatorinformation1 -> projectcoordinatorinformation1.getProject().getId().equals(projectId)).findFirst().orElse(new Projectcoordinatorinformation());
+        return projectcoordinatorinformation;
     }
 
     @Autowired
@@ -70,6 +84,11 @@ public class ProjectService extends BusinessServiceImplementation<Project, Integ
 
     public void postProjectInformation(Projectinformation projectinformation) {
         projectInformationService.add(projectinformation);
+    }
+
+    public Projectinformation getProjectInformationByProjectId(Integer projectId) {
+        Projectinformation projectinformation = projectInformationService.getAll().stream().filter(projectinformation1 -> projectinformation1.getProject().getId().equals(projectId)).findFirst().orElse(new Projectinformation());
+        return projectinformation;
     }
 
     @Autowired
@@ -143,6 +162,14 @@ public class ProjectService extends BusinessServiceImplementation<Project, Integ
     public Projecttechnologyreadinesslevel getProjectTechnologyReadinessLevelById(Integer id){
         Projecttechnologyreadinesslevel projecttechnologyreadinesslevel = projectTechnologyReadinessLevelService.getById(id);
         return projecttechnologyreadinesslevel;
+    }
+    public Projecttechnologyreadinesslevel getProjectTechnologyReadinessLevelByProjectId(Integer projectId){
+        Projecttechnologyreadinesslevel projecttechnologyreadinesslevel = projectTechnologyReadinessLevelService.getAll().stream().filter(projecttechnologyreadinesslevel1 -> projecttechnologyreadinesslevel1.getProject().getId().equals(projectId)).findFirst().orElse(new Projecttechnologyreadinesslevel());
+        return projecttechnologyreadinesslevel;
+    }
+
+    public void deleteProjectTechnologyReadinessLevelFile(Integer id){
+        projectTechnologyReadinessLevelService.deleteById(id);
     }
 
 
@@ -219,6 +246,14 @@ public class ProjectService extends BusinessServiceImplementation<Project, Integ
 
     public void deleteProjectMachinery(Integer id){
         projectMachineryService.deleteById(id);
+    }
+
+
+    public void submitProject(Project project) {
+        Projectinformation pi = getProjectInformationByProjectId(project.getId());
+        project.setProjectApplicationDate(pi.getProjectApplicationDate());
+        project.setProjectTitle(pi.getProjectTitle());
+        repository.save(project);
     }
 
 }
