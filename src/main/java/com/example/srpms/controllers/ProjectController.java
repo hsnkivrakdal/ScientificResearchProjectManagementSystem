@@ -1,6 +1,9 @@
 package com.example.srpms.controllers;
 
 import com.example.srpms.applicationstep.ApplicationStep;
+import com.example.srpms.bridge.ApplicationStepIterator;
+import com.example.srpms.bridge.BapApplicationStepObject;
+import com.example.srpms.bridge.BapApplicationSteps;
 import com.example.srpms.models.*;
 import com.example.srpms.services.ProjectService;
 import com.example.srpms.singletonfilemanagement.FileManager;
@@ -30,9 +33,24 @@ public class ProjectController {
     @GetMapping("/step/{step}/{projectId}")
     public String step(Model model,
                        @PathVariable("step") String step,
-                       @PathVariable("projectId") Integer projectId) {
+                       @PathVariable("projectId") Integer projectId,
+                       HttpSession session) {
+
         ApplicationStep currentStep = ApplicationStep.valueOf(step.toUpperCase());
         Project project = projectService.getById(projectId);
+
+
+        //ApplicationStepIterator iterator = new ApplicationStepIterator(currentStep);
+        //model.addAttribute("nextStep", iterator.hasNext() ? iterator.next() : null);
+        //model.addAttribute("previousStep", iterator.hasPrevious() ? iterator.previous() : null);
+
+
+        //Şahin Hocam
+        var bapProjectSteps = new BapApplicationSteps();
+        bapProjectSteps.AppStepObject = new BapApplicationStepObject(currentStep);
+        model.addAttribute("nextStep",bapProjectSteps.hasNext()?bapProjectSteps.next():null);
+        model.addAttribute("previousStep",bapProjectSteps.hasPrevious() ? bapProjectSteps.previous() : null);
+
 
         if (project == null) {
             throw new RuntimeException("Project not found with Id: " + projectId);
@@ -51,8 +69,31 @@ public class ProjectController {
                 activePage(model);
                 model.addAttribute("activeStep","coordinator");
                 Projectcoordinatorinformation pci = projectService.getProjectcoordinatorInformationByProjectId(projectId);
+
+                if (pci == null) {
+                    pci = new Projectcoordinatorinformation();
+                    pci.setProject(project);
+                } else {
+                    pci.setProject(project);
+                }
+
+                User user = (User) session.getAttribute("user");
+                session.setAttribute("role", user.getUserinroles().stream().findFirst().map(r -> r.getRole().getRoleTitle()).orElse("GUEST"));
+                String role = (String) session.getAttribute("role");
+
+                    if ("LECTURER".equalsIgnoreCase(role)) {
+                        Lecturer lecturer = (Lecturer) session.getAttribute("lecturer");
+                        if (lecturer != null) {
+                            pci.setFirstName(lecturer.getFirstName());
+                            pci.setLastName(lecturer.getLastName());
+                            pci.setMailAddress(lecturer.getMailAddress());
+                            pci.setDoctorateDegree(String.valueOf(lecturer.getDoctorateDegree()));
+                            pci.setPhoneNumber(lecturer.getPhoneNumber());
+                        }
+                    }
                 pci.setProject(project);
                 model.addAttribute("projectCoordinatorInf", pci);
+                model.addAttribute("projectId", projectId);
                 model.addAttribute("positions", projectService.getCoordinatorPositions());
                 return "projects/coordinator-information";
             case PROJECT_INFORMATION:

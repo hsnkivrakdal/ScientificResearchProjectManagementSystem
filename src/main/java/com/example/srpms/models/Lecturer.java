@@ -34,7 +34,7 @@ public class Lecturer {
     private String phoneNumber;
 
     @Column(name = "DoctorateDegree")
-    private Integer doctorateDegree;
+    private String doctorateDegree;
 
     @Column(name = "IdentityNumber", nullable = false, length = 11)
     private String identityNumber;

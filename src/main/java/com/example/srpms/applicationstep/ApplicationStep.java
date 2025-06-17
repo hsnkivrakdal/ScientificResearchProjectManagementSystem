@@ -1,5 +1,7 @@
 package com.example.srpms.applicationstep;
 
+import java.util.List;
+
 public enum ApplicationStep {
     DESCRIPTION,
     COORDINATOR,
@@ -13,15 +15,17 @@ public enum ApplicationStep {
     SUBMIT;
 
 
-    public ApplicationStep next() {
-        int ord = this.ordinal();
-        ApplicationStep[] steps = ApplicationStep.values();
-        return ord < steps.length ? steps[ord + 1] : SUBMIT;
-    }
 
-    public ApplicationStep previous() {
-        int index = this.ordinal();
-        return (index > 0) ? values()[index - 1] : this;
-    }
-
+    public static final List<ApplicationStep> STEPS = List.of(
+            DESCRIPTION,
+            COORDINATOR,
+            PROJECT_INFORMATION,
+            ACTIVITY_AREAS,
+            KEYWORDS,
+            TECHNOLOGY_LEVEL,
+            PERSONNEL,
+            FILES,
+            MACHINERY,
+            SUBMIT
+    );
 }
