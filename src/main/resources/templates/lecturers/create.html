@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Create-Lecturer</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="container-fluid mt-4">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <strong>Create Lecturer</strong>
+          </div>
+          <div class="card-body card-block">
+            <form th:action="@{/lecturers/create}" th:object="${lecturer}" method="post" class="form-horizontal">
+
+              <input type="hidden" th:field="*{id}" />
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="name" class="form-control-label">Name</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="name" th:field="*{firstName}" placeholder="Enter Name" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="surname" class="form-control-label">Surname</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="surname" th:field="*{lastName}" placeholder="Enter Surname" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="mail" class="form-control-label">Mail</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="mail" th:field="*{mailAddress}" placeholder="Enter Mail" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="phone" class="form-control-label">Phone Number</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="phone" th:field="*{phoneNumber}" placeholder="Enter Phone" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="docDeg" class="form-control-label">Doctorate Degree</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="docDeg" th:field="*{doctorateDegree}" placeholder="Enter Doctorate Degree" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="identity" class="form-control-label">Identity Number</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="identity" th:field="*{identityNumber}" placeholder="Enter Identity Number" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="type" class="form-control-label">Lecturer Type</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <select th:field="*{lecturerType}" class="form-control" id="type" required>
+                    <option th:each="lecType : ${lecturerTypes}"
+                            th:value="${lecType.id}"
+                            th:text="${lecType.lecturerTypeTitle}">
+                    </option>
+                  </select>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="lecTitle" class="form-control-label">Lecturer Title</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <select th:field="*{lecturerTitle}" class="form-control" id="lecTitle" required>
+                    <option th:each="lecTitle : ${lecturerTitles}"
+                            th:value="${lecTitle.id}"
+                            th:text="${lecTitle.lecturerTitleDefinition}">
+                    </option>
+                  </select>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="lecAff" class="form-control-label">Lecturer Type</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <select th:field="*{lecturerAffiliation}" class="form-control" id="lecAff" required>
+                    <option th:each="lecAff : ${lecturerAffiliation}"
+                            th:value="${lecAff.id}"
+                            th:text="${lecAff.lecturerAffiliationTitle}">
+                    </option>
+                  </select>
+                  <small class="form-text text-muted">Enter a descriptive name for the record.</small>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-success btn-sm">
+                  <i class="fa fa-dot-circle-o"></i> Submit
+                </button>
+                <a th:href="@{/lecturers/list}" class="btn btn-danger btn-sm">
+                  <i class="fa fa-ban"></i> Cancel
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

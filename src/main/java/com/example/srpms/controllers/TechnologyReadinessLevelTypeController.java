@@ -1,8 +1,6 @@
 package com.example.srpms.controllers;
 
-import com.example.srpms.models.Projecttype;
 import com.example.srpms.models.Technologyreadinessleveltype;
-import com.example.srpms.services.ProjectTypeService;
 import com.example.srpms.services.TechnologyReadinessLevelTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-  <title>ProjectType-List</title>
+  <title>Lecturers-List</title>
   <meta charset="UTF-8">
 </head>
 <body>
@@ -15,21 +15,35 @@
         <table class="table table-borderless table-data3">
           <thead>
           <tr>
-            <th style="width: 10%;">Id</th>
-            <th style="width: 80%;">Title</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Mail</th>
+            <th>Phone Number</th>
+            <th>Doctorate Degree</th>
+            <th>Identity Number</th>
+            <th>Type</th>
+            <th>Title</th>
+            <th>Affiliation</th>
             <th></th>
           </tr>
           </thead>
           <tbody>
-          <tr th:each="type : ${projectType}">
-            <td th:text="${type.id}"></td>
-            <td th:text="${type.projectTypeTitle}"></td>
+          <tr th:each="lec : ${lecturer}">
+            <td th:text="${lec.firstName}"></td>
+            <td th:text="${lec.lastName}"></td>
+            <td th:text="${lec.mailAddress}"></td>
+            <td th:text="${lec.phoneNumber}"></td>
+            <td th:text="${lec.doctorateDegree}"></td>
+            <td th:text="${lec.identityNumber}"></td>
+            <td th:text="${lec.lecturerType}"></td>
+            <td th:text="${lec.lecturerTitle}"></td>
+            <td th:text="${lec.lecturerAffiliation}"></td>
             <td>
               <div class="d-flex">
-                <a th:href="@{'/project-type/edit/' + ${type.id}}" class="btn btn-info btn-sm" style="margin-right: 2px;">
+                <a th:href="@{'/lecturers/edit/' + ${lec.id}}" class="btn btn-info btn-sm" style="margin-right: 2px;">
                   <i class="fa fa-edit"></i> Edit
                 </a>
-                <a th:href="@{'/project-type/delete/' + ${type.id}}"
+                <a th:href="@{'/lecturers/delete/' + ${lec.id}}"
                    class="btn btn-danger btn-sm delBtn">
                   <i class="fa fa-trash"></i> Delete
                 </a>
@@ -39,7 +53,7 @@
           </tbody>
         </table>
         <div class="card-footer">
-          <a th:href="@{/project-type/create}" methods="get" class="btn btn-warning btn-sm" style="color: white;">
+          <a th:href="@{/lecturers/create}" methods="get" class="btn btn-warning btn-sm" style="color: white;">
             <i class="fa fa-plus"></i> Create New
           </a>
         </div>

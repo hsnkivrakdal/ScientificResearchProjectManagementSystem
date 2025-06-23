@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Edit Lecturer</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="container-fluid mt-4">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <strong>Edit Lecturer</strong>
+          </div>
+          <div class="card-body card-block">
+            <form th:action="@{'/lecturers/edit/' + ${lecturer.id}}" th:object="${lecturer}" method="post" class="form-horizontal">
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="name" class="form-control-label">Name</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="name" th:field="*{firstName}" class="form-control" required>
+                  <small class="form-text text-muted">Edit the name.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="surname" class="form-control-label">Surname</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="surname" th:field="*{lastName}" class="form-control" required>
+                  <small class="form-text text-muted">Edit the surname.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="mail" class="form-control-label">Email</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="email" id="mail" th:field="*{mailAddress}" class="form-control" required>
+                  <small class="form-text text-muted">Edit the email address.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="phone" class="form-control-label">Phone Number</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="phone" th:field="*{phoneNumber}" class="form-control" required>
+                  <small class="form-text text-muted">Edit the phone number.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="docDeg" class="form-control-label">Doctorate Degree</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="docDeg" th:field="*{doctorateDegree}" class="form-control" required>
+                  <small class="form-text text-muted">Edit the doctorate degree.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="identity" class="form-control-label">Identity Number</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <input type="text" id="identity" th:field="*{identityNumber}" class="form-control" required>
+                  <small class="form-text text-muted">Edit the identity number.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="lecturerType" class="form-control-label">Lecturer Type</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <select th:field="*{lecturerType}" class="form-control" id="lecturerType" required>
+                    <option th:each="lecType : ${lecturerTypes}"
+                            th:value="${lecType.id}"
+                            th:text="${lecType.lecturerTypeTitle}">
+                    </option>
+                  </select>
+                  <small class="form-text text-muted">Edit the lecturer type.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="lecTitle" class="form-control-label">Lecturer Title</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <select th:field="*{lecturerTitle}" class="form-control" id="lecTitle" required>
+                    <option th:each="lecTitle : ${lecturerTitles}"
+                            th:value="${lecTitle.id}"
+                            th:text="${lecTitle.lecturerTitleDefinition}">
+                    </option>
+                  </select>
+                  <small class="form-text text-muted">Edit the lecturer title.</small>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col col-md-3">
+                  <label for="lecAff" class="form-control-label">Lecturer Affiliation</label>
+                </div>
+                <div class="col-12 col-md-9">
+                  <select th:field="*{lecturerAffiliation}" class="form-control" id="lecAff" required>
+                    <option th:each="lecAff : ${lecturerAffiliation}"
+                            th:value="${lecAff.id}"
+                            th:text="${lecAff.lecturerAffiliationTitle}">
+                    </option>
+                  </select>
+                  <small class="form-text text-muted">Edit the lecturer affiliation.</small>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-success btn-sm">
+                  <i class="fa fa-check"></i> Save
+                </button>
+                <a th:href="@{/lecturers/list}" class="btn btn-danger btn-sm">
+                  <i class="fa fa-times"></i> Cancel
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

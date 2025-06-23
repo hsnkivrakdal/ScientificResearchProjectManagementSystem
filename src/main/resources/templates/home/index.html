@@ -10,8 +10,6 @@
 <body>
 <section layout:fragment="content">
   <h2>Welcome to the Exam Paper Preparation System,<strong> <span th:text="${session.user.getUserFirstName()+ ' ' + session.user.getUserLastName()}"></span> </strong></h2>
-    <br>
-    <h2><span th:text="${'Role: '+session.role.toUpperCase()}"></span></h2>
 </section>
 </body>
 </html>

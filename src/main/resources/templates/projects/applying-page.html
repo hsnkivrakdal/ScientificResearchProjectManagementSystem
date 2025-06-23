@@ -15,7 +15,6 @@
         <table class="table table-borderless table-data3">
           <thead>
           <tr>
-            <th>Id</th>
             <th>Title</th>
             <th>Information</th>
             <th>Start Date</th>
@@ -25,7 +24,6 @@
           </thead>
           <tbody>
           <tr th:each="app : ${projectApplication}">
-            <td th:text="${app.id}"></td>
             <td th:text="${app.projectApplicationtTitle}"></td>
             <td th:text="${app.projectApplicationInformation}"></td>
             <td th:text="${app.projectApplicationStartDate}"></td>

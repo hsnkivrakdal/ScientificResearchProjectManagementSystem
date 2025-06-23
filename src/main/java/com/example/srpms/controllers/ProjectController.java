@@ -39,13 +39,6 @@ public class ProjectController {
         ApplicationStep currentStep = ApplicationStep.valueOf(step.toUpperCase());
         Project project = projectService.getById(projectId);
 
-
-        //ApplicationStepIterator iterator = new ApplicationStepIterator(currentStep);
-        //model.addAttribute("nextStep", iterator.hasNext() ? iterator.next() : null);
-        //model.addAttribute("previousStep", iterator.hasPrevious() ? iterator.previous() : null);
-
-
-        //Şahin Hocam
         var bapProjectSteps = new BapApplicationSteps();
         bapProjectSteps.AppStepObject = new BapApplicationStepObject(currentStep);
         model.addAttribute("nextStep",bapProjectSteps.hasNext()?bapProjectSteps.next():null);
@@ -390,6 +383,6 @@ public class ProjectController {
 
         projectService.submitProject(project);
 
-        return "redirect:/project/step/PERSONNEL/" + projectId;
+        return "redirect:/project-continue/show-submitted-projects";
     }
 }

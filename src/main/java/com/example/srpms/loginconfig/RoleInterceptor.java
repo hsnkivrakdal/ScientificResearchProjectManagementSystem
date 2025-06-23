@@ -19,8 +19,9 @@ public class RoleInterceptor implements HandlerInterceptor {
         roleAccessMap.put("ADMIN", Set.of("/project/**", "/keyword-types/**", "/activity-area-types/**",
                 "/home/**", "/project-type/**","/lecturer-affiliation/**","/lecturer-title/**",
                 "/lecturer-type/**","/machinery-type/**","/personnel-type/**","/project-application/**",
-                "/project-continue/**","/project-report-type/**","/technology-readiness-level-type/**","/authentication/**"));
-        roleAccessMap.put("LECTURER", Set.of("/project/**", "/home/**","/project-continue/**","/authentication/**"));
+                "/project-continue/**","/project-report-type/**","/technology-readiness-level-type/**","/authentication/**",
+                "/lecturers/**","/coordinator-positions/**"));
+        roleAccessMap.put("LECTURER", Set.of("/project/**", "/home/**","/project-continue/**","/authentication/**","/lecturers/**"));
         roleAccessMap.put("COMMITTEE", Set.of("/project-continue/**" ,"/project/**", "/home/**","/authentication/**"));
     }
 

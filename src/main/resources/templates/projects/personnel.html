@@ -109,11 +109,6 @@
                     <td style="text-align: center;" th:text="${list.toString()}"></td>
                     <td style="display: flex; width:0px; text-align: center;">
                         <div class="center">
-                            <a th:href="@{'/keyword-types/delete/' + ${list.id}}"
-                               class="btn btn-info btn-sm" style="margin-right: 2px;">
-                                <i class="fa fa-info"></i>Details</a>
-                        </div>
-                        <div class="center">
                             <a th:href="@{/project/project-personnel/delete/{id}/{projectId}(id=${list.id}, projectId=${projectId})}"
                                th:if="${!project.isSubmitted}"
                                class="btn btn-danger btn-sm delBtn">

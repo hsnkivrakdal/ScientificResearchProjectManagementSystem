@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Coordinator Positions</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="row m-t-30">
+    <div class="col-md-12">
+      <div class="table-responsive m-b-40">
+        <table class="table table-borderless table-data3">
+          <thead>
+          <tr>
+            <th style="width: 10%;">Id</th>
+            <th style="width: 80%;">Title</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="item : ${coordinatorPosition}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.coordinatorPositionTitle}"></td>
+            <td>
+              <div class="d-flex">
+                <a th:href="@{'/coordinator-positions/edit/' + ${item.id}}" class="btn btn-info btn-sm" style="margin-right: 2px;">
+                  <i class="fa fa-edit"></i> Edit
+                </a>
+                <a th:href="@{'/coordinator-positions/delete/' + ${item.id}}"
+                   class="btn btn-danger btn-sm delBtn">
+                  <i class="fa fa-trash"></i> Delete
+                </a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="card-footer">
+          <a th:href="@{/coordinator-positions/create}" class="btn btn-warning btn-sm" style="color: white;">
+            <i class="fa fa-plus"></i> Create New
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

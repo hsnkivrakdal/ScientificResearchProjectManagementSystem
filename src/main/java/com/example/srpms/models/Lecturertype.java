@@ -27,4 +27,8 @@ public class Lecturertype {
     @OneToMany(mappedBy = "lecturerType")
     private Set<Lecturer> lecturers = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return lecturerTypeTitle;
+    }
 }

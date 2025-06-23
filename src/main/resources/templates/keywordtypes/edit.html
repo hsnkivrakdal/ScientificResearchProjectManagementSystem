@@ -3,46 +3,46 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-  <title>Edit Activity Area Type</title>
+    <title>Edit Activity Area Type</title>
 </head>
 <body>
 <section layout:fragment="content">
-  <div class="container-fluid mt-4">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="card">
-          <div class="card-header">
-            <strong>Edit Activity Area Type</strong>
-          </div>
-          <div class="card-body card-block">
-            <form th:action="@{'/keyword-types/edit/' + ${keywordTypes.id}}" th:object="${keywordTypes}" method="post" class="form-horizontal">
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Edit Activity Area Type</strong>
+                    </div>
+                    <div class="card-body card-block">
+                        <form th:action="@{'/keyword-types/edit/' + ${keywordTypes.id}}" th:object="${keywordTypes}" method="post" class="form-horizontal">
 
-              <input type="hidden" th:field="*{id}" />
+                            <input type="hidden" th:field="*{id}" />
 
-              <div class="row form-group">
-                <div class="col col-md-3">
-                  <label for="activityAreaTypeTitle" class="form-control-label">Title</label>
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="activityAreaTypeTitle" class="form-control-label">Title</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="text" id="activityAreaTypeTitle" th:field="*{keywordTypeTitle}" class="form-control" required>
+                                    <small class="form-text text-muted">Edit the name of the record.</small>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="fa fa-check"></i> Save
+                                </button>
+                                <a th:href="@{/keyword-types/list}" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i> Cancel
+                                </a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-12 col-md-9">
-                  <input type="text" id="activityAreaTypeTitle" th:field="*{keywordTypeTitle}" class="form-control" required>
-                  <small class="form-text text-muted">Edit the name of the record.</small>
-                </div>
-              </div>
-
-              <div class="card-footer">
-                <button type="submit" class="btn btn-success btn-sm">
-                  <i class="fa fa-check"></i> Save
-                </button>
-                <a th:href="@{/keyword-types/list}" class="btn btn-danger btn-sm">
-                  <i class="fa fa-times"></i> Cancel
-                </a>
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 </body>
 </html>

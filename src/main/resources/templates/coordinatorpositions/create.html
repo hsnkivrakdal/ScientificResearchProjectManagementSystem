@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-  <title>ProjectType-Edit</title>
+  <title>Create Coordinator Position</title>
 </head>
 <body>
 <section layout:fragment="content">
@@ -12,29 +12,29 @@
       <div class="col-lg-6">
         <div class="card">
           <div class="card-header">
-            <strong>ProjectReportType-Edit</strong>
+            <strong>Create Coordinator Position</strong>
           </div>
           <div class="card-body card-block">
-            <form th:action="@{'/project-type/edit/' + ${projectType.id}}" th:object="${projectType}" method="post" class="form-horizontal">
+            <form th:action="@{/coordinator-positions/create}" th:object="${coordinatorPosition}" method="post" class="form-horizontal">
 
               <input type="hidden" th:field="*{id}" />
 
               <div class="row form-group">
                 <div class="col col-md-3">
-                  <label for="title" class="form-control-label">Title</label>
+                  <label for="coordinatorPositionTitle" class="form-control-label">Title</label>
                 </div>
                 <div class="col-12 col-md-9">
-                  <input type="text" id="title" th:field="*{projectTypeTitle}" class="form-control" required>
-                  <small class="form-text text-muted">Edit the name of the record.</small>
+                  <input type="text" id="coordinatorPositionTitle" th:field="*{coordinatorPositionTitle}" placeholder="Enter Position Title" class="form-control" required>
+                  <small class="form-text text-muted">Enter a descriptive name for the position.</small>
                 </div>
               </div>
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-success btn-sm">
-                  <i class="fa fa-check"></i> Save
+                  <i class="fa fa-dot-circle-o"></i> Submit
                 </button>
-                <a th:href="@{/project-type/list}" class="btn btn-danger btn-sm">
-                  <i class="fa fa-times"></i> Cancel
+                <a th:href="@{/coordinator-positions/list}" class="btn btn-danger btn-sm">
+                  <i class="fa fa-ban"></i> Cancel
                 </a>
               </div>
             </form>
